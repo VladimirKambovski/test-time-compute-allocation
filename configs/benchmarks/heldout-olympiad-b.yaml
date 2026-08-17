@@ -1,0 +1,10 @@
+role: heldout_in_distribution
+dataset_id: "Hothan/OlympiadBench"
+slice: B
+n_problems: 100
+disjoint_from: olympiad-a
+problem_id_hash_sha256: "FILL_IN_DAY_2"   # commit the hash before any generation
+generate_after: "design-frozen tag exists (Day 10) AND roadmap says Day 18"
+rule: >
+  Do not generate against this config before Day 18. Do not re-tune
+  anything after seeing these results.

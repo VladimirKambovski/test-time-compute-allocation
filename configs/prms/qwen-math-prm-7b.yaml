@@ -1,0 +1,11 @@
+# Primary verifier. Frozen. This is the actual PRM used in the reference
+# papers (2501.07301 trained it; 2502.06703 tested it) — do not treat
+# swapping this the same way as the policy model swap. See CLAUDE.md
+# "Non-negotiable invariants" #2 before considering any change here.
+role: primary_prm
+model_id: "Qwen/Qwen2.5-Math-PRM-7B"
+scorer_type: scalar_step_level
+segmentation_conventions:      # try in this order per gate G3 in docs/roadmap.md
+  - double_newline             # "\n\n" delimited steps
+  - step_prefix                # "Step k:" delimited
+  - special_token               # model-specific step token, if any

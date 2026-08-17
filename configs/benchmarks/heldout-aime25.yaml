@@ -1,0 +1,6 @@
+role: heldout_out_of_distribution
+dataset_id: "FILL_IN_DAY_2"   # no single canonical HF copy exists yet — verify and pick one, don't guess
+n_problems: 30
+problem_id_hash_sha256: "FILL_IN_DAY_2"
+statistics: ordinal_only   # n=30 is too small for means/CIs — report medians and ordinal statements only
+generate_after: "Day 18, same rule as heldout-olympiad-b"

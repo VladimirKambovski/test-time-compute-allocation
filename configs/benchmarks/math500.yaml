@@ -1,0 +1,5 @@
+role: reproduction_anchor
+dataset_id: "HuggingFaceH4/MATH-500"
+n_problems: 500
+split: dev
+purpose: baseline_reproduction_B1_B2_B3   # compare against published maj@k / pass@k / PRM curves

@@ -1,0 +1,9 @@
+# STRETCH — generalization/scale ablation only. Not used unless the
+# roadmap explicitly calls for it (A6 in docs/brief.md).
+role: secondary_policy_stretch
+model_id: "Qwen/Qwen3.5-1.7B"   # VERIFY slug if/when this is actually used
+thinking_mode: false
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 1024

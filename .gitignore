@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+*.egg-info/
+
+# Pool artifacts are large and regenerable from configs -- do not commit.
+# Exception: keep small fixture files under tests/fixtures/.
+data/pools/**
+!tests/fixtures/**
+
+# Local secrets
+.env.local
+*.key

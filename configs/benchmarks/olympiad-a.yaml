@@ -1,0 +1,10 @@
+role: primary_experimental_set
+dataset_id: "Hothan/OlympiadBench"
+slice: A
+n_problems: 300
+split: dev
+purpose: >
+  Primary set for the action-value landscape (E2), predictor training
+  (E5), and allocation frontier (E7). Chosen over more MATH-500 because
+  MATH-500 may be too saturated for the current policy model to leave a
+  measurable selection gap (see docs/brief.md gate G1).

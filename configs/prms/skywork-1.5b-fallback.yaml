@@ -1,0 +1,11 @@
+# Fallback PRM (resource ladder rung 2). Same job as the primary, smaller.
+# Only used if the primary doesn't fit available compute — this is an
+# automatic, allowed fallback (unlike an ORM/judge substitution, which
+# requires gate G10). Log the switch in notes/ if it's ever used.
+role: fallback_prm
+model_id: "Skywork/Skywork-o1-Open-PRM-Qwen-2.5-1.5B"   # VERIFY exact slug before use
+scorer_type: scalar_step_level
+segmentation_conventions:
+  - double_newline
+  - step_prefix
+  - special_token

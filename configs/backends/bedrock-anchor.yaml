@@ -1,0 +1,11 @@
+# Frontier anchor. Single pass, comparison point only — NOT part of the
+# paired experimental design. Used for: the "single larger model call"
+# the assignment requires, and the cost-per-correct-answer table.
+role: frontier_anchor
+provider: bedrock
+model_id: null    # fill in during Day 1 setup — any capable current Bedrock model
+usage: single_pass_only
+scope:
+  - dev_subset_200_problems
+  - heldout_130_problems
+budget_ceiling_usd: 10

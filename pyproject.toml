@@ -1,0 +1,29 @@
+[project]
+name = "marginal-token"
+version = "0.1.0"
+description = "Evidence-driven test-time compute allocation for small reasoning models"
+requires-python = ">=3.10"
+dependencies = [
+    "vllm",
+    "transformers",
+    "torch",
+    "accelerate",
+    "scikit-learn",
+    "numpy",
+    "pandas",
+    "scipy",
+    "pydantic>=2",
+    "fastapi",
+    "uvicorn",
+    "pyyaml",
+    "pytest",
+    "langfuse",
+    # "math-verify",  # install per its own repo instructions -- pin exact source
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

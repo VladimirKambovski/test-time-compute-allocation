@@ -1,0 +1,19 @@
+# Primary policy model. Frozen — do not change without logging in notes/.
+role: primary_policy
+model_id: "Qwen/Qwen3.5-4B"   # VERIFY exact HF slug on Day 1 (gate G0) — not yet independently confirmed
+thinking_mode: false            # non-thinking is a methodological choice, not a shortcut:
+                                 # thinking mode inflates output length 3-5x, which would
+                                 # confound every matched-token comparison (H1, H4)
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 1024
+backends:
+  - type: local_vllm
+    quantization: bf16
+  - type: api_host        # fill in once G0 confirms which host serves this model
+    provider: null
+notes: >
+  Updated from Qwen3-4B on Day 1 (G0). Neither Qwen3-4B nor Qwen3.5-4B
+  appears in the baseline papers being reproduced (both predate Qwen3),
+  so this swap costs no comparability to published numbers.

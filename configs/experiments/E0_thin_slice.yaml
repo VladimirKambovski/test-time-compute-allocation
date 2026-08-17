@@ -1,0 +1,9 @@
+name: E0_thin_end_to_end_slice
+day: 11
+tier: MUST
+gate: G9
+n_problems: 100
+purpose: >
+  Prove the full Diagnose -> Predict -> Allocate chain works end to end
+  before any expensive SHOULD-tier generation/scoring starts. Produces
+  preliminary H1/H2/H4 numbers at slice scale, not final results.
