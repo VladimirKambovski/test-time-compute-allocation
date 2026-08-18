@@ -1,8 +1,26 @@
 role: primary_experimental_set
 dataset_id: "Hothan/OlympiadBench"
+dataset_revision: "91184b52131e7fc9455fef848035173aea8cc01a"   # HF dataset commit SHA, pinned Day 2
+config: "OE_TO_maths_en_COMP"   # Open-Ended (checkable final answer, unlike Theorem-Proof),
+                                  # Text-Only (no images — matches the text-only PRM/pipeline),
+                                  # maths (not physics — matches Math-PRM and MATH-500's domain),
+                                  # English (matches MATH-500's language), Competition-level
+                                  # (matches "Olympiad" framing over Chinese College Entrance
+                                  # Exam). Decided Day 2 with user sign-off; 674 rows total in
+                                  # this config.
 slice: A
 n_problems: 300
 split: dev
+problem_id_field: "id"   # the dataset's own integer `id` column
+problem_ids_file: "configs/benchmarks/data/olympiad-a-ids.json"
+selection: >
+  Day 2: fetched all 674 problem IDs in config OE_TO_maths_en_COMP via the
+  HF datasets-server API. Sorted ascending (canonical starting order), then
+  shuffled with Python's `random.Random(20260818).shuffle()` (stdlib
+  Mersenne Twister — deterministic for a given seed across Python
+  versions). First 300 post-shuffle -> slice A (this file). Next 100 ->
+  slice B, held out (see heldout-olympiad-b.yaml) -- disjoint by
+  construction, not by post-hoc filtering. Remaining 274 unused/reserved.
 purpose: >
   Primary set for the action-value landscape (E2), predictor training
   (E5), and allocation frontier (E7). Chosen over more MATH-500 because

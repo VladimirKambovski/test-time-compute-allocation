@@ -4,6 +4,8 @@
 # "Non-negotiable invariants" #2 before considering any change here.
 role: primary_prm
 model_id: "Qwen/Qwen2.5-Math-PRM-7B"
+revision: "0610740060112df12585d00a1c5f4624d2f59051"   # HF commit SHA, pinned Day 2 via
+                                 # huggingface.co/api/models/Qwen/Qwen2.5-Math-PRM-7B
 scorer_type: scalar_step_level
 segmentation_conventions:      # try in this order per gate G3 in docs/roadmap.md
   - double_newline             # "\n\n" delimited steps

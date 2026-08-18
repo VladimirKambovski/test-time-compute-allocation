@@ -1,6 +1,12 @@
 # Primary policy model. Frozen — do not change without logging in notes/.
 role: primary_policy
-model_id: "Qwen/Qwen3.5-4B"   # CONFIRMED Day 1 (G0): this is the correct, exact HF slug.
+model_id: "Qwen/Qwen3.5-4B"
+revision: "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"   # HF commit SHA, pinned Day 2 via
+                                 # huggingface.co/api/models/Qwen/Qwen3.5-4B (lastModified
+                                 # 2026-03-02, matches the release date). Per invariant #3,
+                                 # this revision is part of pool identity — any future upstream
+                                 # commit to this repo is a NEW pool, never a silent continuation.
+                                 # model_id below CONFIRMED Day 1 (G0): this is the correct, exact HF slug.
                                  # It is the post-trained (chat) repo — Qwen3.5 naming puts
                                  # pretrained-only weights under the separate "-Base" suffix
                                  # (Qwen/Qwen3.5-4B-Base), unlike Qwen3's "-Instruct-2507"

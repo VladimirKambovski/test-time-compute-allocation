@@ -1,9 +1,22 @@
 role: heldout_in_distribution
 dataset_id: "Hothan/OlympiadBench"
+dataset_revision: "91184b52131e7fc9455fef848035173aea8cc01a"   # HF dataset commit SHA, pinned Day 2
+config: "OE_TO_maths_en_COMP"   # same config as slice A -- see olympiad-a.yaml for rationale
 slice: B
 n_problems: 100
 disjoint_from: olympiad-a
-problem_id_hash_sha256: "FILL_IN_DAY_2"   # commit the hash before any generation
+problem_id_field: "id"
+problem_ids_file: "configs/benchmarks/data/heldout-olympiad-b-ids.json"   # frozen Day 2
+problem_id_hash_sha256: "85b5c5a51169352af8ba8b6df2c06e7f0f262602386afc8afef2d87467f8d241"
+hash_method: >
+  SHA-256 of json.dumps(sorted(problem_ids), separators=(',', ':')),
+  UTF-8 encoded. Recompute from problem_ids_file to verify before any
+  Day-18 use.
+selection: >
+  Day 2: drawn from the identical seeded shuffle as slice A (see
+  olympiad-a.yaml `selection` for the exact procedure) -- this is IDs
+  [300:400] of that shuffle, so disjointness from slice A is guaranteed
+  by construction, not by post-hoc filtering. Frozen 2026-08-18.
 generate_after: "design-frozen tag exists (Day 10) AND roadmap says Day 18"
 rule: >
   Do not generate against this config before Day 18. Do not re-tune

@@ -1,6 +1,23 @@
 role: heldout_out_of_distribution
-dataset_id: "FILL_IN_DAY_2"   # no single canonical HF copy exists yet — verify and pick one, don't guess
+dataset_id: "opencompass/AIME2025"   # picked Day 2 over math-ai/aime25 -- both are correct
+                                       # 15+15=30 problem sets; opencompass is a widely-cited
+                                       # standard eval framework/leaderboard already familiar in
+                                       # this space. Decided with user sign-off.
+dataset_revision: "a6ad95f611d72cf628a80b58bd0432ef6638f958"   # HF dataset commit SHA, pinned Day 2
+configs: ["AIME2025-I", "AIME2025-II"]   # 15 problems each = 30 total
 n_problems: 30
-problem_id_hash_sha256: "FILL_IN_DAY_2"
-statistics: ordinal_only   # n=30 is too small for means/CIs — report medians and ordinal statements only
+problem_id_field: null   # dataset has no native per-row id (just `question`/`answer` columns);
+                          # IDs below are minted as "{config}-{zero_padded_row_index}",
+                          # e.g. "AIME2025-I-00" .. "AIME2025-II-14"
+problem_ids_file: "configs/benchmarks/data/heldout-aime25-ids.json"   # frozen Day 2
+problem_id_hash_sha256: "8d6a52abcc7f1110480dff8f67ab657df5909da2d2c7e90131c526f3193fabdd"
+hash_method: >
+  SHA-256 of json.dumps(sorted(problem_ids), separators=(',', ':')),
+  UTF-8 encoded. Recompute from problem_ids_file to verify before any
+  Day-18 use.
+selection: >
+  Day 2: no shuffle/split needed -- this benchmark is held out in its
+  entirety (all 30 problems from both AIME I and II 2025), per
+  docs/brief.md §12. IDs minted and frozen 2026-08-18.
+statistics: ordinal_only   # n=30 is too small for means/CIs -- report medians and ordinal statements only
 generate_after: "Day 18, same rule as heldout-olympiad-b"
