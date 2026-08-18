@@ -1,6 +1,13 @@
 # Primary policy model. Frozen — do not change without logging in notes/.
 role: primary_policy
-model_id: "Qwen/Qwen3.5-4B"   # VERIFY exact HF slug on Day 1 (gate G0) — not yet independently confirmed
+model_id: "Qwen/Qwen3.5-4B"   # CONFIRMED Day 1 (G0): this is the correct, exact HF slug.
+                                 # It is the post-trained (chat) repo — Qwen3.5 naming puts
+                                 # pretrained-only weights under the separate "-Base" suffix
+                                 # (Qwen/Qwen3.5-4B-Base), unlike Qwen3's "-Instruct-2507"
+                                 # convention. Released 2026-03-02 on HF + ModelScope. 5.17B
+                                 # params, bf16/f32 safetensors, Apache 2.0, native 262144
+                                 # context (extensible to ~1.01M via YaRN). Supports
+                                 # enable_thinking:false to disable thinking mode.
 thinking_mode: false            # non-thinking is a methodological choice, not a shortcut:
                                  # thinking mode inflates output length 3-5x, which would
                                  # confound every matched-token comparison (H1, H4)
@@ -11,9 +18,31 @@ decode:
 backends:
   - type: local_vllm
     quantization: bf16
-  - type: api_host        # fill in once G0 confirms which host serves this model
+    status: confirmed          # Day 1 (G0): vLLM officially documents serving the Qwen3.5
+                                 # family (docs.vllm.ai/projects/recipes/en/stable/Qwen/Qwen3.5.html).
+                                 # Non-thinking via --default-chat-template-kwargs
+                                 # '{"enable_thinking": false}'; seed via --seed; logprobs via
+                                 # --logprobs_mode processed_logprobs. Free, full control.
+  - type: api_host        # Day 1 (G0): NOT satisfied — requirement waived for this model, see notes below.
     provider: null
+    status: waived
 notes: >
   Updated from Qwen3-4B on Day 1 (G0). Neither Qwen3-4B nor Qwen3.5-4B
   appears in the baseline papers being reproduced (both predate Qwen3),
   so this swap costs no comparability to published numbers.
+
+  Day 1 G0 hosted-API survey (2026-08-18): could NOT confirm a hosted API
+  serving this exact post-trained model as a simple pay-per-token endpoint.
+  Checked Fireworks AI, DeepInfra, Alibaba DashScope/Model Studio,
+  OpenRouter, Novita, Groq, Together AI, and Replicate — none cleanly
+  serves the exact `Qwen/Qwen3.5-4B` checkpoint as a simple pay-per-token
+  API (closest was Fireworks, which lists it but explicitly as the Base
+  model, non-serverless). Full detail in notes/2026-08-18.md.
+
+  **Decision (user, 2026-08-18): the ≥2-backend requirement is WAIVED for
+  Qwen3.5-4B specifically** — it's genuinely too new for broad hosted-API
+  coverage. Local vLLM is the sole confirmed backend for policy
+  generation; this is an accepted risk, not a silent gap. Compensating
+  control, recorded in docs/brief.md's R0 risk-table entry: if local GPU
+  access is lost, rent a compatible cloud GPU rather than substitute the
+  primary policy model. Model itself is unchanged — no substitution.
