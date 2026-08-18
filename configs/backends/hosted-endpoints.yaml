@@ -1,0 +1,121 @@
+# Mentor-provided hosted infrastructure, added 2026-08-20. Confirmed by
+# mentor to stay up for the full four weeks -- treated as primary, not a
+# documented-but-unused fallback. All three endpoints live-tested today
+# (see notes/2026-08-20.md for the full verification transcript).
+#
+# API key for all three: stored in .env as HOSTED_ENDPOINT_API_KEY
+# (value not repeated here or anywhere else in the repo -- see .env,
+# which is confirmed excluded by .gitignore via `git check-ignore -v
+# .env`). Never hardcode the key in this file or any source file; load
+# it from the environment at runtime.
+
+policy:
+  role: primary_policy
+  base_url: "https://qwen35-4b-bf16.deb12.smoki.mk"
+  api_key_env: "HOSTED_ENDPOINT_API_KEY"
+  protocol: openai_compatible_chat_completions   # /v1/chat/completions, /v1/models confirmed live
+  server: llamacpp   # NOT vllm -- see IMPORTANT CAVEAT below
+  served_model_id: "unsloth/Qwen3.5-4B-GGUF:BF16"   # returned by /v1/models -- NOT "Qwen/Qwen3.5-4B"
+  verified_2026-08-20:
+    - "GET /v1/models -> HTTP 200, confirms served_model_id above"
+    - "POST /v1/chat/completions with chat_template_kwargs.enable_thinking=false -> non-thinking output confirmed (no <think> block)"
+    - "logprobs:true -> per-token logprob + top_logprobs returned (OpenAI-compatible shape)"
+    - "seed param accepted (not yet confirmed bit-reproducible across repeated calls -- untested today)"
+    - "boxed answer present in output for a trivial arithmetic prompt"
+  server_reported_meta:
+    n_ctx: 16384          # served context window -- clamped well below the 262144 native/training
+                            # context. Not expected to matter for this project (prompts are ~150
+                            # input + 1024 output tokens per §27.3's workload ledger) but recorded
+                            # per §27.6 point 2: provider-side clamping counts as material if it
+                            # changes the effective output-length distribution -- worth a real check
+                            # once actual pool generation starts against this endpoint, not assumed.
+    n_ctx_train: 262144
+    n_vocab: 248320
+    n_params: 4205751296  # 4.2B -- consistent with "4B" naming
+    ftype: "BF16"
+  IMPORTANT_CAVEAT: >
+    This endpoint does NOT serve the official `Qwen/Qwen3.5-4B` HF repo
+    (the one pinned by commit SHA in configs/policies/qwen3.5-4b.yaml) via
+    vLLM. It serves a THIRD-PARTY GGUF conversion published by "unsloth"
+    (`unsloth/Qwen3.5-4B-GGUF`, BF16 variant), via llama.cpp
+    ("owned_by":"llamacpp" in the server's own /v1/models response) --
+    a different distributor AND a different inference engine from what
+    CLAUDE.md's frozen policy config specifies. Per docs/brief.md §27.6's
+    compatibility contract, "quantization / numeric precision" and the
+    "backend/provider deployment" itself are both pool-identity-relevant:
+    a GGUF conversion by a third party, served by a different engine, is
+    not guaranteed bit-identical to the official safetensors release even
+    when both are labeled BF16 (conversion tooling can introduce its own
+    numerical differences). Flagged explicitly rather than silently
+    treated as interchangeable with local-vLLM-on-official-weights.
+    Practical consequence: this satisfies G0's literal "servable on >=2
+    backends" requirement (see docs/brief.md R0), but any pool generated
+    against THIS endpoint must be tagged with this exact backend_ref /
+    served_model_id in its provenance block, and must never be merged
+    with a pool generated via official-weights-on-vLLM -- they are
+    different conditions per invariant #3, full stop, same as any other
+    backend change.
+
+prm_primary:
+  role: primary_prm
+  base_url: "https://math-prm.deb11.smoki.mk"
+  api_key_env: "HOSTED_ENDPOINT_API_KEY"
+  protocol: custom_score_endpoint   # NOT OpenAI-compatible -- custom FastAPI app
+  chat_template: standard_chatml   # server applies tokenizer.apply_chat_template internally
+  request_schema:
+    endpoint: "POST /score"
+    fields:
+      system: "string, optional, defaults to the standard 'reason step by step, boxed answer' prompt"
+      query: "string, required -- the problem statement"
+      steps: "array, required -- list of step strings (already segmented by the caller)"
+  response_schema:
+    num_steps: int
+    step_rewards: "array[float], one per input step"
+    mean_reward: float
+  verified_2026-08-20:
+    - "GET /docs -> HTTP 200 (FastAPI auto-docs live)"
+    - "GET /openapi.json -> confirms /health and /score routes"
+    - "POST /score with a 2-step toy problem -> HTTP 200, plausible step_rewards (0.98, 1.0)"
+  note: >
+    Segmentation into `steps` is still our responsibility (per the three
+    segmentation conventions in configs/prms/qwen-math-prm-7b.yaml) --
+    this endpoint scores whatever step list it's given, it doesn't
+    segment for us.
+
+prm_fallback:
+  role: fallback_prm
+  base_url: "https://skywork-prm.deb2.smoki.mk"
+  api_key_env: "HOSTED_ENDPOINT_API_KEY"
+  protocol: custom_score_endpoint
+  chat_template: none   # do NOT apply_chat_template to this one -- server uses its own prepare_input()
+  request_schema:
+    endpoint: "POST /score"
+    fields:
+      problem: "string, required"
+      response: "string, required -- the FULL completion text, not pre-segmented steps"
+      step_token: "string, optional, default '\\n' -- delimiter the server's own prepare_input() uses to segment"
+  response_schema:
+    num_steps: int
+    steps: "array[string] -- the server's own segmentation of `response` by step_token, echoed back"
+    step_rewards: "array[float]"
+    mean_reward: float
+  verified_2026-08-20:
+    - "GET /docs -> HTTP 200"
+    - "GET /openapi.json -> confirms /health and /score routes, request shape differs from prm_primary"
+    - "POST /score with a 2-line toy response -> HTTP 200, plausible step_rewards (0.81, 0.68)"
+  note: >
+    Segmentation contract is inverted relative to prm_primary: this
+    server does its OWN step segmentation via prepare_input() given the
+    raw response text and a step_token delimiter, rather than accepting
+    a pre-segmented steps array. Do not pre-split and do not apply a chat
+    template before sending -- both would double-process input the
+    server already handles itself.
+
+raw_gpu_servers:
+  note: >
+    Two raw GPU servers with SSH access were also provided
+    (194.149.138.12, 194.149.138.21), separate from the hosted endpoints
+    above -- available if project-controlled compute is needed beyond
+    what's hosted. Deliberately left undocumented beyond this note per
+    today's task scope; whether we SSH into these directly or just use
+    the hosted endpoints for pool generation is a later decision.

@@ -22,33 +22,42 @@ decode:
   top_p: 0.95
   max_tokens: 1024
 backends:
-  - type: local_vllm
+  - type: api_host          # DEFAULT backend as of 2026-08-20 -- mentor-provided, confirmed
+                              # stable for the full four weeks, not a fallback.
+    provider: hosted_endpoint
+    config_ref: "configs/backends/hosted-endpoints.yaml#policy"
+    status: confirmed         # live-tested 2026-08-20: /v1/models, /v1/chat/completions with
+                              # enable_thinking=false, logprobs, all confirmed working.
+    caveat: >
+      Serves a third-party unsloth GGUF conversion via llama.cpp, NOT the
+      official Qwen/Qwen3.5-4B safetensors via vLLM -- see the
+      IMPORTANT_CAVEAT block in configs/backends/hosted-endpoints.yaml
+      before assuming pool-equivalence with the local_vllm backend below.
+  - type: local_vllm         # secondary backend -- available via the raw GPU servers
+                              # (194.149.138.12, 194.149.138.21) if/when used; not yet exercised.
     quantization: bf16
-    status: confirmed          # Day 1 (G0): vLLM officially documents serving the Qwen3.5
+    status: confirmed_available   # Day 1 (G0): vLLM officially documents serving the Qwen3.5
                                  # family (docs.vllm.ai/projects/recipes/en/stable/Qwen/Qwen3.5.html).
                                  # Non-thinking via --default-chat-template-kwargs
                                  # '{"enable_thinking": false}'; seed via --seed; logprobs via
-                                 # --logprobs_mode processed_logprobs. Free, full control.
-  - type: api_host        # Day 1 (G0): NOT satisfied — requirement waived for this model, see notes below.
-    provider: null
-    status: waived
+                                 # --logprobs_mode processed_logprobs. Not yet run for real (no
+                                 # GPU access until the raw servers above are actually used).
 notes: >
   Updated from Qwen3-4B on Day 1 (G0). Neither Qwen3-4B nor Qwen3.5-4B
   appears in the baseline papers being reproduced (both predate Qwen3),
   so this swap costs no comparability to published numbers.
 
-  Day 1 G0 hosted-API survey (2026-08-18): could NOT confirm a hosted API
-  serving this exact post-trained model as a simple pay-per-token endpoint.
-  Checked Fireworks AI, DeepInfra, Alibaba DashScope/Model Studio,
-  OpenRouter, Novita, Groq, Together AI, and Replicate — none cleanly
-  serves the exact `Qwen/Qwen3.5-4B` checkpoint as a simple pay-per-token
-  API (closest was Fireworks, which lists it but explicitly as the Base
-  model, non-serverless). Full detail in notes/2026-08-18.md.
+  Day 1 G0 hosted-API survey (2026-08-18): could not confirm a public
+  hosted API serving this exact post-trained model as a simple
+  pay-per-token endpoint (checked 8 hosts; see notes/2026-08-18.md). The
+  >=2-backend requirement was WAIVED that day as an accepted risk.
 
-  **Decision (user, 2026-08-18): the ≥2-backend requirement is WAIVED for
-  Qwen3.5-4B specifically** — it's genuinely too new for broad hosted-API
-  coverage. Local vLLM is the sole confirmed backend for policy
-  generation; this is an accepted risk, not a silent gap. Compensating
-  control, recorded in docs/brief.md's R0 risk-table entry: if local GPU
-  access is lost, rent a compatible cloud GPU rather than substitute the
-  primary policy model. Model itself is unchanged — no substitution.
+  **2026-08-20: G0 formally un-waived.** Mentor provided dedicated hosted
+  infrastructure (see configs/backends/hosted-endpoints.yaml), confirmed
+  stable for the full four weeks -- treated as the primary/default
+  backend, not a fallback. Two real backends now exist: this hosted
+  endpoint, plus local vLLM via the mentor-provided raw GPU servers if/
+  when used. See notes/2026-08-20.md and docs/brief.md's R0 risk row for
+  the full reversal writeup, including the GGUF/llama.cpp caveat above --
+  flagged because it's pool-identity-relevant per §27.6, not because it
+  blocks anything.

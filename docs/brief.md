@@ -553,6 +553,20 @@ Two distinct shortfall scenarios, with different consequences:
 | **Total planned if GPU available** | **~$8** | |
 | **Total if GPU unavailable throughout** | **~$20–35** | |
 
+**Updated 2026-08-20:** the "GPU unavailable throughout" scenario this
+reserve exists for is now unlikely for the remainder of the project.
+Mentor-provided infrastructure — hosted endpoints for all three frozen
+models (policy + both PRM rungs) plus two raw GPU servers with SSH access
+— is confirmed stable for the full four weeks and costs the project $0
+(not a metered commercial API draw against this budget). The **$25 API
+generation reserve line is kept as a ceiling, not deleted** — it still
+covers a genuine tail risk (mentor infrastructure itself going down, or a
+need for a *different* commercial host it doesn't cover) — but is no
+longer the expected path. Planned total is unchanged (~$8, since it never
+assumed the reserve would be spent); the "if GPU unavailable throughout"
+total is now a low-probability worst case rather than a live contingency.
+See `notes/2026-08-20.md` and R0 in §28.
+
 AWS budget alarms at $10 / $25 / $40 configured Day 1. API spend tracked in `notes/` per run. **Neither AWS nor any API host is forced into the project where it adds nothing** — the frontier anchor is the only element genuinely requiring a hosted model, and it is required by the assignment rather than by convenience.
 
 ### 27.6 Policy-generation fidelity and the pool compatibility contract
@@ -586,7 +600,7 @@ If policy generation moves to a hosted API backend, the primary model and decode
 |---|---|---|---|---|
 | R1 | Extraction/equivalence silently wrong → all numbers invalid | **9** | Day 3 dedicated; 200-pair hand-checked golden set; failure rate is a headline metric | Restrict to unambiguous numeric answers, report the restriction |
 | R2 | PRM segmentation wrong → PRM scores are noise | **9** | Gate G3 Day 5 before any scale scoring; three conventions cached | Try the other segmentation conventions, then ladder rung 2. Replacing the PRM with a whole-solution ORM would redefine A2, so it goes through **G10**, not through the fallback chain |
-| R0 | **Compute backend unavailable or intermittent** | **8** | Backend abstraction from Day 6; G0 verifies two backends and provider clamping on Day 1; N=64 floor | §27.4 Scenario A: hybrid execution, API generation reserve, slice A reduced to 200 problems. Scenario B (no GPU-class environment at all) → **G10**. **Accepted risk, logged 2026-08-18:** Qwen3.5-4B is too new for broad hosted-API coverage as of Day 1 G0 — no host surveyed (Fireworks, DeepInfra, DashScope, OpenRouter, Novita, Groq, Together, Replicate) cleanly serves the exact post-trained checkpoint as a simple pay-per-token API; the ≥2-backend requirement is waived for this model specifically, and local vLLM is the sole confirmed backend for policy generation. Compensating control: if local GPU access is lost, the response is renting a compatible cloud GPU (cheap, fits the budget, keeps pool continuity on the same model/backend/condition) — **not** swapping the primary policy model. See `notes/2026-08-18.md`. |
+| R0 | **Compute backend unavailable or intermittent** | **8** | Backend abstraction from Day 6; G0 verifies two backends and provider clamping on Day 1; N=64 floor | §27.4 Scenario A: hybrid execution, API generation reserve, slice A reduced to 200 problems. Scenario B (no GPU-class environment at all) → **G10**. ~~Accepted risk, logged 2026-08-18: Qwen3.5-4B is too new for broad hosted-API coverage... the ≥2-backend requirement is waived...~~ **SUPERSEDED 2026-08-20 — G0 formally un-waived.** Mentor provided dedicated infrastructure, confirmed stable for the full four weeks: a hosted endpoint for the exact policy model (`configs/backends/hosted-endpoints.yaml`) plus two raw GPU servers with SSH access for local vLLM if/when used. Two real backends now exist; treated as primary, not fallback. **Caveat carried forward, not resolved by the reversal:** the hosted endpoint serves a third-party `unsloth/Qwen3.5-4B-GGUF:BF16` conversion via llama.cpp, not the official `Qwen/Qwen3.5-4B` safetensors via vLLM pinned in CLAUDE.md/the policy config — per §27.6's compatibility contract this is a distinct backend/provider deployment and possibly a distinct numeric artifact even at matching declared precision. G0's literal "servable on ≥2 backends" test is satisfied either way, but any pool generated against this hosted endpoint must be tracked as its own condition and never merged with a hypothetical official-weights-on-vLLM pool, per invariant #3 — this is the existing rule applied to a newly discovered fact, not a new exception. See `notes/2026-08-20.md` for the full verification transcript (endpoint reachability, `/v1/chat/completions` with non-thinking mode + logprobs confirmed live, both PRM `/score` endpoints confirmed live). Compensating-control language from the 2026-08-18 waiver (rent a cloud GPU rather than swap the primary model) is now moot — the raw GPU servers already cover that scenario directly. |
 | R10 | **No compatible GPU environment for PRM scoring** | **6** | PRM ladder §27.3a; rung 2 accepts any compatible GPU environment | **G10 mentor decision.** A short paid cloud-GPU rental is usually the cheapest and cleanest resolution and fits the budget |
 | R11 | No API host serves the primary model within the compatibility contract | **4** | G0 Day 1 verifies model availability and provider clamping on ≥2 backends | Change the primary model for the **whole** project and re-run the Day-4 baseline; never split pools across models |
 | R3 | Losing 2–3 working days | **7** | E0 thin slice on Day 11 proves the chain early | Cut order in §31 |

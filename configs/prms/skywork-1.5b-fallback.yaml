@@ -9,3 +9,15 @@ segmentation_conventions:
   - double_newline
   - step_prefix
   - special_token
+backends:
+  - type: api_host          # DEFAULT as of 2026-08-20 -- mentor-provided, confirmed stable
+                              # for the full four weeks, not a fallback.
+    provider: hosted_endpoint
+    config_ref: "configs/backends/hosted-endpoints.yaml#prm_fallback"
+    status: confirmed         # live-tested 2026-08-20: /score returned plausible step_rewards
+                              # for a toy 2-line response.
+    chat_template: none       # do NOT apply_chat_template -- server uses its own prepare_input()
+                              # given {problem, response, step_token}; send raw response text.
+  - type: local_gpu          # secondary -- available via the raw GPU servers
+                              # (194.149.138.12, 194.149.138.21) if/when used; not yet exercised.
+    status: available_not_exercised
