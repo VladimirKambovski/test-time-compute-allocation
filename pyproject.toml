@@ -20,7 +20,10 @@ dependencies = [
     "pyyaml",
     "pytest",
     "langfuse",
-    # "math-verify",  # install per its own repo instructions -- pin exact source
+    "math-verify[antlr4_13_2]>=0.9.0",  # plain PyPI package as of 0.9.0 -- the "install per its
+                                          # own repo instructions" caveat is stale, verified Day 3.
+                                          # antlr4_13_2 extra pinned per the project's own README
+                                          # recommendation, to avoid antlr4-runtime version drift.
 ]
 
 [build-system]
