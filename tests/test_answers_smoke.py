@@ -93,9 +93,50 @@ def test_extract_answer_disagreeing_multi_boxed_is_ambiguous():
     assert result.value is None
 
 
+def test_extract_answer_sqrt_is_not_silently_truncated():
+    # Regression test for a real bug caught during the Day-3 golden-200
+    # hand-check: math_verify.parse() on BARE boxed span content (no
+    # \boxed{} wrapper, no $ anchor) silently mis-parses LaTeX commands
+    # instead of failing loudly -- parse("3\sqrt{5}") returns bare
+    # Integer(3), dropping \sqrt{5} entirely. This produced a real false
+    # "equivalent" verdict against a numerically different gold answer on
+    # an actual model completion. extract_answer must route span content
+    # back through \boxed{...} (or otherwise avoid this), not bare parse.
+    result = extract_answer("The area is $3\\sqrt{5}$. \\boxed{3\\sqrt{5}}")
+    assert result.status == FailureStatus.OK
+    assert str(result.value) == "3*sqrt(5)"
+
+
+def test_extract_answer_set_is_not_silently_collapsed():
+    # Same bug class: parse("\{1,2,3\}") bare collapses a 3-element set to
+    # just its last element (3) instead of the set -- silently wrong, not
+    # a failure to extract.
+    result = extract_answer("\\boxed{\\{1, 2, 3\\}}")
+    assert result.status == FailureStatus.OK
+    assert "1" in str(result.value) and "2" in str(result.value) and "3" in str(result.value)
+
+
 def test_extract_answer_empty_boxed_is_no_boxed_answer():
     result = extract_answer("\\boxed{}")
     assert result.status == FailureStatus.NO_BOXED_ANSWER
+
+
+def test_extract_answer_truncated_with_spurious_intermediate_equation_is_length_truncated():
+    # Regression test for a real bug caught during the Day-3 golden-200
+    # hand-check: a completion cut off by max_tokens mid-derivation, with
+    # no \boxed{} anywhere but containing an intermediate equation (e.g.
+    # "c = 1" from scratch work), used to have that equation silently
+    # picked up by the plain-text fallback and credited as the final
+    # answer -- regardless of truncation. finish_reason="length" must win
+    # outright when there's no boxed span, never falling through to the
+    # text-scanning fallback first.
+    truncated_text = (
+        "Let's compute the matrix. Row 1, Col 1: $1\\cdot1 + i\\cdot1 = 1+i$. "
+        "No, $c=1$. Ah"
+    )
+    result = extract_answer(truncated_text, finish_reason="length")
+    assert result.status == FailureStatus.LENGTH_TRUNCATED
+    assert result.value is None
 
 
 # --- check_equivalent: correctness and the timeout-vs-False distinction ---
@@ -119,6 +160,37 @@ def test_check_equivalent_false_case():
     result = check_equivalent(prediction=pred, gold=gold)
     assert result.equivalent is False
     assert result.status == FailureStatus.OK  # a confirmed "not equivalent" IS a valid ok-status result
+
+
+def test_check_equivalent_handles_raw_string_gold():
+    # Regression test for a real bug caught during the Day-3 golden-200
+    # hand-check: math_verify.verify() does NOT reliably canonicalize a
+    # raw, un-parsed gold string -- despite its type signature accepting
+    # a plain str. verify("4", parse("\boxed{4}")[0]) empirically returns
+    # False. Every dev benchmark (MATH-500, OlympiadBench) stores gold
+    # answers as raw strings, so this was silently marking correct
+    # answers wrong on 196/196 real completions before the fix.
+    prediction = extract_answer("The answer is \\boxed{4}.").value
+    assert check_equivalent(prediction=prediction, gold="4").equivalent is True
+    assert check_equivalent(prediction=prediction, gold="$4$").equivalent is True
+    assert check_equivalent(prediction=prediction, gold="5").equivalent is False
+
+
+def test_check_equivalent_gold_tuple_not_silently_collapsed():
+    # Regression test for a real false-negative bug caught during the
+    # Day-3 golden-200 hand-check: parsing a bare (unwrapped) gold string
+    # containing a tuple silently collapsed it to its last element instead
+    # of failing loudly -- parse("\left(3, \frac{\pi}{2}\right)") bare
+    # returned Integer(3), not the pair. A genuinely correct prediction of
+    # (3, pi/2) was scored "not equivalent" against gold's silently-wrong
+    # bare-3 parse. Gold must be $-wrapped before parsing, same as
+    # extraction's boxed-span fix.
+    from math_verify import parse
+
+    prediction = parse("$(3, \\pi/2)$")[0]
+    result = check_equivalent(prediction=prediction, gold="\\left( 3, \\frac{\\pi}{2} \\right)")
+    assert result.equivalent is True
+    assert result.status == FailureStatus.OK
 
 
 def test_check_equivalent_timeout_is_not_silently_false():

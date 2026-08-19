@@ -22,6 +22,22 @@ policy:
     - "logprobs:true -> per-token logprob + top_logprobs returned (OpenAI-compatible shape)"
     - "seed param accepted (not yet confirmed bit-reproducible across repeated calls -- untested today)"
     - "boxed answer present in output for a trivial arithmetic prompt"
+    - "logprobs coverage is FULL, not sampled: a 36-completion-token response returned exactly 36 logprob entries (usage.completion_tokens matched len(logprobs.content) exactly)"
+    - "top_logprobs ceiling checked at 5/20/50/100 -- server honored all four, no cap hit up to 100. At least as generous as typical vLLM/OpenAI defaults (OpenAI caps at 20)"
+  probe_feature_group_impact: >
+    Checked specifically because the predictor design (docs/brief.md §16)
+    splits probe features into an 'agreement' group (no backend
+    requirement) and a 'confidence' group (requires logprobs -- mean/min
+    per-token logprob, self-certainty, cumulative-logprob spread).
+    Conclusion: this endpoint supports the FULL confidence group, not just
+    agreement. Per-token logprobs cover every generated token (not a
+    sample), and top_logprobs goes at least to 100 with no observed cap --
+    ample for self-certainty/entropy-style computations that need more
+    than a handful of top-k candidates. No expected feature-group
+    degradation versus local vLLM. (Direct side-by-side comparison against
+    an actual running local vLLM instance is still untested -- no GPU
+    access yet to run one -- this is a comparison against vLLM's
+    documented capabilities, not a live diff.)
   server_reported_meta:
     n_ctx: 16384          # served context window -- clamped well below the 262144 native/training
                             # context. Not expected to matter for this project (prompts are ~150
