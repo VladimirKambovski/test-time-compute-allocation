@@ -11,9 +11,10 @@ logged in `notes/YYYY-MM-DD.md` regardless of pass/fail.
 ## Week 1 — Literature, verification, baseline, brief
 
 ### Day 1 — Novelty check + Gate G0 [MUST]
-- [ ] Resolve the five flagged papers in full text (see docs/brief.md §1
-      novelty check list). Write a one-page-per-paper "what remains
-      open" note.
+- [ ] Resolve the five flagged papers in full text: 2604.17433,
+      2606.09078, 2606.08098, 2607.08065, 2506.12721 (per docs/brief.md
+      §32 Day 1 plan). Write a one-page-per-paper "what remains open"
+      note.
 - [ ] **G0:** Verify `Qwen/Qwen3.5-4B` (exact slug!) is servable on ≥2
       backends: local via vLLM, plus at least one hosted API. Record
       pricing, whether logprobs are exposed, whether seeds are honoured.
@@ -41,7 +42,7 @@ logged in `notes/YYYY-MM-DD.md` regardless of pass/fail.
 - **Done when:** golden test passes; rates are logged.
 
 ### Day 4 — Baseline reproduction + Gate G1 [MUST] — most decisive day
-- [ ] Generate 100 MATH-500 problems, N=64, on the primary policy.
+- [ ] Generate 100 MATH-500 problems, N=32, on the primary policy.
 - [ ] Compute maj@k, pass@k.
 - [ ] **G1:** oracle-over-{STOP,SAMPLE,SELECT} minus best fixed policy.
       Accept if ≥8pp. See docs/brief.md §33 for the fallback chain if
@@ -73,7 +74,7 @@ logged in `notes/YYYY-MM-DD.md` regardless of pass/fail.
 - [ ] `src/marginal_token/generation/`: config-hashed, resumable sweeps.
 - [ ] `src/marginal_token/pools/`: content-addressed store, nested-prefix
       views.
-- [ ] Start P1 (MATH-500, N=64) generation in the background.
+- [ ] Start P1 (MATH-500, N=32) generation in the background.
 - **Done when:** a killed generation run resumes cleanly to a complete
   pool, and every sample carries full provenance.
 
@@ -133,7 +134,7 @@ logged in `notes/YYYY-MM-DD.md` regardless of pass/fail.
 
 ### Day 12 — DIAGNOSE: landscape + search arm, Gate G5 [MUST]
 - [ ] E2: action-value landscape across {STOP,SAMPLE,SELECT} × 5 budgets
-      × 5 difficulty bands, on P1∪P2 at N=64.
+      × 5 difficulty bands, on P1∪P2 at N=32.
 - [ ] Adapt bounded beam search (100–150 stratified problems × 2
       matched-token budgets [MUST]; 3rd budget / 200 problems [SHOULD]).
 - [ ] **G5:** sanity check on 20 problems — within 10pp of SAMPLE at
@@ -189,7 +190,7 @@ logged in `notes/YYYY-MM-DD.md` regardless of pass/fail.
   path to an outcome.
 
 ### Day 18 — Held-out evaluation, single pass [MUST]
-- [ ] Generate P4 (Olympiad-B) + P5 (AIME25) at N=64.
+- [ ] Generate P4 (Olympiad-B) + P5 (AIME25) at N=32.
 - [ ] Run the **frozen** controller and selectors. One pass. No tuning.
 - [ ] Frontier anchor calls on held-out.
 - **Done when:** held-out numbers are recorded, whatever they say. No

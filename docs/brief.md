@@ -6,7 +6,7 @@
 
 **Status: scope pre-registered and frozen subject to predefined gates G0–G10.** Changes triggered by those gates follow the fallback paths already written into this document. Any other material change requires a mentor discussion and a dated entry in `notes/`.
 
-**Revision note (v2).** No change to the research question, the Diagnose → Predict → Allocate structure, H1–H4, the controller concept, or the system. v2 changes only feasibility floors, execution ordering, and the compute plan: N=64 is the guaranteed floor, the search arm's committed workload is reduced, the 32B comparator moves to SHOULD, gateway integration and report writing start in Week 2, a MUST-before-SHOULD execution rule is added, program-process deliverables are made explicit, and the compute plan is rewritten to be backend-agnostic rather than assuming a dedicated GPU.
+**Revision note (v2).** No change to the research question, the Diagnose → Predict → Allocate structure, H1–H4, the controller concept, or the system. v2 changes only feasibility floors, execution ordering, and the compute plan: N=32 is the guaranteed floor, the search arm's committed workload is reduced, the 32B comparator moves to SHOULD, gateway integration and report writing start in Week 2, a MUST-before-SHOULD execution rule is added, program-process deliverables are made explicit, and the compute plan is rewritten to be backend-agnostic rather than assuming a dedicated GPU.
 
 ---
 
@@ -109,24 +109,24 @@ Reported as *reproduced / partially / not reproduced / out of scope*.
 
 | # | Claim | Source | Test |
 |---|---|---|---|
-| V1 | A 1B model with compute-optimal TTS beats a 405B model | 2502.06703 | Check scope: MATH-500-only, N=512, PRM-dependent; the paper itself reports underperformance on AIME24. Does gap-closing survive on OlympiadBench at N=64? |
+| V1 | A 1B model with compute-optimal TTS beats a 405B model | 2502.06703 | Check scope: MATH-500-only, N=512, PRM-dependent; the paper itself reports underperformance on AIME24. Does gap-closing survive on OlympiadBench at N=32? |
 | V2 | PRMs beat majority voting | 2501.07301 | Reproduce the margin; does it clear the paired bootstrap CI? |
 | V3 | Self-consistency plateaus, can decline after peak on hard items | 2508.00410 | Locate plateau-N per benchmark and difficulty band |
 | V4 | PRM argmax winners are length-biased | 2606.09078 | Regress winner length and step count against pool median |
 | V5 | Cheap agreement signals give large savings at ~zero accuracy cost | 2305.11860 | Reimplemented as a predictor comparator; measured here |
 
-## 10. Headline hypotheses — all answerable at N=64
+## 10. Headline hypotheses — all answerable at N=32
 
 Accept conditions frozen and tagged Day 10.
 
-| ID | Stage | Hypothesis | Accept if (at N=64, the MUST floor) |
+| ID | Stage | Hypothesis | Accept if (at N=32, the MUST floor) |
 |---|---|---|---|
 | **H1** | DIAGNOSE | The allocation choice matters and is heterogeneous | Oracle allocation ≥ best fixed policy by **≥8 points** at matched tokens on ≥1 dev benchmark, paired bootstrap CI excluding 0; **and** each of A0, A1, A2, A4 is the oracle action for ≥5% of problems at ≥1 budget level |
 | **H2** | PREDICT | Cheap probe evidence predicts the winning action | 4-class macro-AUROC **≥0.70**, grouped 5-fold CV, above majority-class and agreement-threshold comparators |
 | **H3** | PREDICT | Post-hoc sampled evidence beats pre-hoc query text | Post-hoc macro-AUROC exceeds the pre-hoc embedding classifier by **≥0.05**, paired over problems |
 | **H4** | ALLOCATE | Predicted allocation improves the quality–compute frontier | At matched tokens, beats every fixed policy on ≥3 of 5 budget levels, **and** closes **≥50%** of the random→oracle gap |
 
-Matched-token budget levels are defined relative to the N=64 floor: B ∈ {A1-equivalent at N = 4, 8, 16, 32, 64}. An N=128 pool, if produced, adds a sixth level and strengthens plateau/crossover analysis but is not required by any accept condition.
+Matched-token budget levels are defined relative to the N=32 floor: B ∈ {A1-equivalent at N = 2, 4, 8, 16, 32}. An N=64 pool, if produced, adds a sixth level and strengthens plateau/crossover analysis but is not required by any accept condition.
 
 H1 is both the first hypothesis and the premise check; gate G1 tests it in miniature on Day 4.
 
@@ -139,7 +139,7 @@ None of the following is a headline research question.
 | PRM-argmax crossover as N grows | **Supporting analysis** (DIAGNOSE) | Validity region of the SELECT action |
 | PRM length/step bias | **Supporting analysis** (mechanism) | Explains the crossover; verifies V4 |
 | Selection gap (pass@k − best selector) | **Supporting analysis** (DIAGNOSE) | Upper bound on SAMPLE+SELECT |
-| **N=128 pools** | **SHOULD / planned extension** | Sharpens crossover and plateau; adds a sixth budget level |
+| **N=64 pools** | **SHOULD / planned extension** | Sharpens crossover and plateau; adds a sixth budget level |
 | Second PRM (Skywork-1.5B) | **Robustness** — SHOULD | Is SELECT's value verifier-dependent? |
 | Verifier-free selectors | **Robustness** — SHOULD | Is a free signal as good as a 7B verifier inside A2? |
 | Local 32B comparator | **SHOULD** | Context for the small-vs-large gap; does not answer H1–H4 |
@@ -157,7 +157,7 @@ None of the following is a headline research question.
 
 | Role | Choice | Tier | Why |
 |---|---|---|---|
-| Primary policy | **Qwen3.5-4B, non-thinking**, `max_tokens=1024` | MUST | Non-thinking output (~600–900 tok) makes N=64 affordable on any backend *and* keeps matched-token comparisons unconfounded — thinking mode varies length 3–5×, which would void H1 and H4. Updated from Qwen3-4B on Day 1 (G0): neither model appears in the original baseline papers (both predate Qwen3), so the switch costs no comparability to published numbers and gains a stronger current checkpoint in the same size class and dual-mode design |
+| Primary policy | **Qwen3.5-4B, non-thinking**, `max_tokens=1024` | MUST | Non-thinking output (~600–900 tok) makes N=32 affordable on any backend *and* keeps matched-token comparisons unconfounded — thinking mode varies length 3–5×, which would void H1 and H4. Updated from Qwen3-4B on Day 1 (G0): neither model appears in the original baseline papers (both predate Qwen3), so the switch costs no comparability to published numbers and gains a stronger current checkpoint in the same size class and dual-mode design |
 | Verifier | Qwen2.5-Math-PRM-7B (rung 1), smaller/quantized PRM (rung 2) | MUST | Three-rung ladder in §27.3a; rung 3 is a mentor decision gate, not a substitution |
 | Frontier anchor | one API/Bedrock model, single pass | MUST | The assignment's "single larger model call"; the program's Bedrock expectation |
 | Local 32B comparator | Qwen2.5-32B-Instruct AWQ-4bit | **SHOULD** | Token-symmetric context; not required for H1–H4 |
@@ -173,7 +173,7 @@ None of the following is a headline research question.
 
 Slice B is in-distribution held-out; AIME25 is out-of-distribution and harder, and is **ordinal-only** (n=30). Held-out IDs are SHA-256 hashed and committed Day 2; no held-out generation before Day 18; no re-tuning after.
 
-## 13. Pool design — N=64 floor, N=128 extension
+## 13. Pool design — N=32 floor, N=64 extension
 
 ```
 pool_id = blake2s(policy_ref ‖ backend_ref ‖ benchmark_id ‖ problem_id
@@ -184,15 +184,15 @@ pool_id = blake2s(policy_ref ‖ backend_ref ‖ benchmark_id ‖ problem_id
 
 | Pool | Problems | N | Tier |
 |---|---|---|---|
-| P1 MATH-500 | 500 | **64 MUST**, extend to 128 SHOULD | MUST |
-| P2 OlympiadBench-A | 300 | **64 MUST**, extend to 128 SHOULD | MUST |
+| P1 MATH-500 | 500 | **32 MUST**, extend to 64 SHOULD | MUST |
+| P2 OlympiadBench-A | 300 | **32 MUST**, extend to 64 SHOULD | MUST |
 | P3 Hard subset (lowest pass@8 quartile) | 100 | 128–256 | SHOULD |
 | P4 Held-out Olympiad-B | 100 | 64 | MUST, Day 18 |
 | P5 Held-out AIME25 | 30 | 64 | MUST, Day 18 |
 | P6 Replicate of P2 (second sampling replicate) | 300 | 64 | SHOULD |
 | P7 Smaller policy on P1 subset | 200 | 64 | STRETCH |
 
-**Nested prefixes.** An N=128 pool *contains* the complete N=64 experiment by truncation. So the extension is strictly additive: generate to 64 first, checkpoint, and continue to 128 only if compute allows. A shortfall never invalidates work already done.
+**Nested prefixes.** An N=64 pool *contains* the complete N=32 experiment by truncation. So the extension is strictly additive: generate to 32 first, checkpoint, and continue to 64 only if compute allows. A shortfall never invalidates work already done.
 
 Records store: text, three step-segmentation conventions, extracted and canonicalized answers, per-token logprobs *where the backend provides them*, cumulative logprob where available, token counts, finish reason, declared outcome, wall-clock, and the full inference-metadata block from §27.
 
@@ -262,7 +262,7 @@ The pre-hoc comparator is non-negotiable: without it H3 is unfalsifiable.
 
 | # | Stage | Experiment | Configuration | Hypothesis | Tier |
 |---|---|---|---|---|---|
-| E0 | — | **Thin end-to-end slice** | 100 problems, N=64, full Diagnose→Predict→Allocate chain | preliminary H1/H2/H4 | **MUST, Day 11** |
+| E0 | — | **Thin end-to-end slice** | 100 problems, N=32, full Diagnose→Predict→Allocate chain | preliminary H1/H2/H4 | **MUST, Day 11** |
 | E1 | — | Baseline reproduction | P1, 4 selectors, k ∈ {1..64} | B1–B3 | MUST |
 | E2 | DIAGNOSE | Action-value landscape | P1∪P2 × {A0,A1,A2} × 5 matched-token budgets × 5 difficulty bands | H1 | MUST |
 | E3 | DIAGNOSE | Search arm | beam × 2 budgets × 100–150 stratified problems vs A1, A2 | H1 (is A3 in the space?) | MUST |
@@ -496,20 +496,20 @@ Volumes assume ~800 output tokens per sample and ~150 input tokens per prompt.
 
 | Workload | Token volume | 3090-class GPU-h | Needs GPU-class compute? | API-capable? | Approx. API cost | Fallback if preferred resource unavailable |
 |---|---|---|---|---|---|---|
-| **P1+P2 pools, N=64** (MUST) | ~41 M out, ~8 M in | **8–14 h** | preferred | **Yes** | **~$2–15** (verify host pricing Day 1) | Generate via API host; if budget-constrained, reduce OlympiadBench slice A from 300 → 200 problems |
-| P1+P2 extension to N=128 (SHOULD) | +41 M out | +8–14 h | preferred | Yes | +$2–15 | Skip. Nested prefixes mean N=64 work is already complete |
-| **PRM scoring, P1+P2** (MUST) | ~41 M prefill per pass | **4–10 h** (7B PRM) | **Yes — no API exists** | **No** | — | **PRM ladder (§27.3a):** rung 1 primary 7B PRM on an available GPU → rung 2 smaller/quantized PRM on any available compatible GPU environment (~2–5 h) → rung 3 **mentor decision gate G10**, not an automatic substitution |
+| **P1+P2 pools, N=32** (MUST) | ~20 M out, ~4 M in | **4–7 h** | preferred | **Yes** | **~$1–8** (verify host pricing Day 1) | Generate via API host; if budget-constrained, reduce OlympiadBench slice A from 300 → 200 problems |
+| P1+P2 extension to N=64 (SHOULD) | +20 M out | +4–7 h | preferred | Yes | +$1–8 | Skip. Nested prefixes mean N=32 work is already complete |
+| **PRM scoring, P1+P2** (MUST) | ~20 M prefill per pass | **2–5 h** (7B PRM) | **Yes — no API exists** | **No** | — | **PRM ladder (§27.3a):** rung 1 primary 7B PRM on an available GPU → rung 2 smaller/quantized PRM on any available compatible GPU environment (~1–3 h) → rung 3 **mentor decision gate G10**, not an automatic substitution |
 | **Search arm, 100–150 × 2 budgets** (MUST) | ~3–5 M out + PRM forwards | **4–7 h** | preferred | Partially — via stop-sequence stepping | ~$1–4 policy tokens + GPU-side PRM | Hybrid: policy generation via a compatible API backend, PRM scoring at ladder rung 1 or 2. Reduce to 100 problems × 2 budgets |
-| **Held-out P4+P5, N=64** (MUST) | ~6.7 M out | **1.5–3 h** | preferred | Yes | ~$0.5–3 | Same backend as dev pools if at all possible; if not, report as a separate backend row with the caveat stated |
+| **Held-out P4+P5, N=32** (MUST) | ~3.3 M out | **~1 h** | preferred | Yes | ~$0.25–1.5 | Same backend as dev pools if at all possible; if not, report as a separate backend row with the caveat stated |
 | **Frontier anchor, single pass** (MUST) | ~0.5 M out | — | No | **Yes** | **~$3–8** (Bedrock or API) | Reduce to 200 dev + 130 held-out; cap spend |
 | Local 32B comparator (SHOULD) | ~0.9 M out | 2–3 h | No | Yes | **~$0.20–1** via API | Run via API instead of locally — cheaper and simpler than the 4-bit local route |
 | Pre-hoc embedding comparator (MUST) | ~930 embeddings | negligible | No | Yes | ~$0–1 | Local sentence-transformer at $0 |
 | P3 / P6 / P7 (SHOULD/STRETCH) | varies | 10–20 h | preferred | Yes | ~$3–10 | Skip entirely |
 | **All analysis, replay, ablations, demo** | 0 | **0** | **No** | n/a | **$0** | None needed — this is the point of the frozen-pool design |
 
-**MUST totals:** ~52 M output tokens of generation plus ~41 M tokens of PRM prefill. Executed entirely on a 3090-class GPU: **~18–34 GPU-hours.** Executed hybrid — policy generation via a compatible API backend, PRM scoring at ladder rung 2 on whatever compatible GPU environment is available: **~$6–25 in API spend plus ~6–15 hours of modest GPU time.** Both paths fit the stated budgets.
+**MUST totals (recomputed 2026-08-20 for the N=32 floor):** ~28 M output tokens of generation plus ~20 M tokens of PRM prefill. Executed entirely on a 3090-class GPU: **~10–20 GPU-hours** (was ~18–34 at N=64). Executed hybrid — policy generation via a compatible API backend, PRM scoring at ladder rung 2 on whatever compatible GPU environment is available: **~$2–14 in API spend plus ~5–13 hours of modest GPU time** (was ~$6–25 / ~6–15 h). Both paths fit the stated budgets, now with more headroom than before.
 
-The N=64 floor is what makes this true. At N=128 the generation half roughly doubles; that is exactly why it is SHOULD.
+The N=32 floor is what makes this true. At N=64 the generation half roughly doubles; that is exactly why it is SHOULD.
 
 ### 27.3a The PRM resource ladder
 
@@ -534,7 +534,7 @@ If remote 3090 access is available, spend it in this order — highest value fir
 1. **PRM scoring.** No API alternative exists; this is where GPU access is irreplaceable.
 2. **Search arm.** Many short interleaved generations; API round-trip latency hurts most here.
 3. **P1+P2 pool generation.** Valuable but fully API-substitutable.
-4. **N=128 extension**, then SHOULD pools. First to be dropped.
+4. **N=64 extension**, then SHOULD pools. First to be dropped.
 
 Two distinct shortfall scenarios, with different consequences:
 
@@ -600,7 +600,7 @@ If policy generation moves to a hosted API backend, the primary model and decode
 |---|---|---|---|---|
 | R1 | Extraction/equivalence silently wrong → all numbers invalid | **9** | Day 3 dedicated; 200-pair hand-checked golden set; failure rate is a headline metric | Restrict to unambiguous numeric answers, report the restriction |
 | R2 | PRM segmentation wrong → PRM scores are noise | **9** | Gate G3 Day 5 before any scale scoring; three conventions cached | Try the other segmentation conventions, then ladder rung 2. Replacing the PRM with a whole-solution ORM would redefine A2, so it goes through **G10**, not through the fallback chain |
-| R0 | **Compute backend unavailable or intermittent** | **8** | Backend abstraction from Day 6; G0 verifies two backends and provider clamping on Day 1; N=64 floor | §27.4 Scenario A: hybrid execution, API generation reserve, slice A reduced to 200 problems. Scenario B (no GPU-class environment at all) → **G10**. ~~Accepted risk, logged 2026-08-18: Qwen3.5-4B is too new for broad hosted-API coverage... the ≥2-backend requirement is waived...~~ **SUPERSEDED 2026-08-20 — G0 formally un-waived.** Mentor provided dedicated infrastructure, confirmed stable for the full four weeks: a hosted endpoint for the exact policy model (`configs/backends/hosted-endpoints.yaml`) plus two raw GPU servers with SSH access for local vLLM if/when used. Two real backends now exist; treated as primary, not fallback. **Caveat carried forward, not resolved by the reversal:** the hosted endpoint serves a third-party `unsloth/Qwen3.5-4B-GGUF:BF16` conversion via llama.cpp, not the official `Qwen/Qwen3.5-4B` safetensors via vLLM pinned in CLAUDE.md/the policy config — per §27.6's compatibility contract this is a distinct backend/provider deployment and possibly a distinct numeric artifact even at matching declared precision. G0's literal "servable on ≥2 backends" test is satisfied either way, but any pool generated against this hosted endpoint must be tracked as its own condition and never merged with a hypothetical official-weights-on-vLLM pool, per invariant #3 — this is the existing rule applied to a newly discovered fact, not a new exception. See `notes/2026-08-20.md` for the full verification transcript (endpoint reachability, `/v1/chat/completions` with non-thinking mode + logprobs confirmed live, both PRM `/score` endpoints confirmed live). Compensating-control language from the 2026-08-18 waiver (rent a cloud GPU rather than swap the primary model) is now moot — the raw GPU servers already cover that scenario directly. |
+| R0 | **Compute backend unavailable or intermittent** | **8** | Backend abstraction from Day 6; G0 verifies two backends and provider clamping on Day 1; N=32 floor | §27.4 Scenario A: hybrid execution, API generation reserve, slice A reduced to 200 problems. Scenario B (no GPU-class environment at all) → **G10**. ~~Accepted risk, logged 2026-08-18: Qwen3.5-4B is too new for broad hosted-API coverage... the ≥2-backend requirement is waived...~~ **SUPERSEDED 2026-08-20 — G0 formally un-waived.** Mentor provided dedicated infrastructure, confirmed stable for the full four weeks: a hosted endpoint for the exact policy model (`configs/backends/hosted-endpoints.yaml`) plus two raw GPU servers with SSH access for local vLLM if/when used. Two real backends now exist; treated as primary, not fallback. **Caveat carried forward, not resolved by the reversal:** the hosted endpoint serves a third-party `unsloth/Qwen3.5-4B-GGUF:BF16` conversion via llama.cpp, not the official `Qwen/Qwen3.5-4B` safetensors via vLLM pinned in CLAUDE.md/the policy config — per §27.6's compatibility contract this is a distinct backend/provider deployment and possibly a distinct numeric artifact even at matching declared precision. G0's literal "servable on ≥2 backends" test is satisfied either way, but any pool generated against this hosted endpoint must be tracked as its own condition and never merged with a hypothetical official-weights-on-vLLM pool, per invariant #3 — this is the existing rule applied to a newly discovered fact, not a new exception. See `notes/2026-08-20.md` for the full verification transcript (endpoint reachability, `/v1/chat/completions` with non-thinking mode + logprobs confirmed live, both PRM `/score` endpoints confirmed live). Compensating-control language from the 2026-08-18 waiver (rent a cloud GPU rather than swap the primary model) is now moot — the raw GPU servers already cover that scenario directly. |
 | R10 | **No compatible GPU environment for PRM scoring** | **6** | PRM ladder §27.3a; rung 2 accepts any compatible GPU environment | **G10 mentor decision.** A short paid cloud-GPU rental is usually the cheapest and cleanest resolution and fits the budget |
 | R11 | No API host serves the primary model within the compatibility contract | **4** | G0 Day 1 verifies model availability and provider clamping on ≥2 backends | Change the primary model for the **whole** project and re-run the Day-4 baseline; never split pools across models |
 | R3 | Losing 2–3 working days | **7** | E0 thin slice on Day 11 proves the chain early | Cut order in §31 |
@@ -613,9 +613,9 @@ If policy generation moves to a hosted API backend, the primary model and decode
 
 ## 29. Execution rules
 
-**Rule 1 — MUST before SHOULD.** No SHOULD experiment may consume significant inference or implementation time until **E0** has successfully produced end-to-end Diagnose → Predict → Allocate results on the 100-problem thin slice. SHOULD analyses that run free over already-cached artifacts (verifier-free selectors, PRM reductions, probe-size ablation) may proceed earlier; expensive SHOULD *generation* and *scoring* (N=128 extension, P3, P6, P7, second PRM, third search budget, local 32B) waits.
+**Rule 1 — MUST before SHOULD.** No SHOULD experiment may consume significant inference or implementation time until **E0** has successfully produced end-to-end Diagnose → Predict → Allocate results on the 100-problem thin slice. SHOULD analyses that run free over already-cached artifacts (verifier-free selectors, PRM reductions, probe-size ablation) may proceed earlier; expensive SHOULD *generation* and *scoring* (N=64 extension, P3, P6, P7, second PRM, third search budget, local 32B) waits.
 
-**Rule 2 — N=64 first, always.** Generation proceeds to N=64 across all MUST pools before any pool is extended toward 128.
+**Rule 2 — N=32 first, always.** Generation proceeds to N=32 across all MUST pools before any pool is extended toward 64.
 
 **Rule 3 — one backend per pool.** See §27.1.
 
@@ -677,7 +677,7 @@ Build `answers/`: extraction, canonicalization, equivalence via `math_verify`. H
 *Done when:* 200 pairs pass and rates are in `notes/`.
 
 **Day 4 · Baseline reproduction and G1 · 7 h · M · most decisive day**
-Generate 100 MATH-500 problems, N=64. Compute maj@k, pass@k, and the **G1 allocation-headroom probe** over {A0, A1, A2}. Compare maj@k against published values (B1, B2).
+Generate 100 MATH-500 problems, N=32. Compute maj@k, pass@k, and the **G1 allocation-headroom probe** over {A0, A1, A2}. Compare maj@k against published values (B1, B2).
 *Depends on:* Day 3 — extraction must be trustworthy first.
 *Output:* first headroom number with bootstrap CI; G1 decision; B1/B2 partial reproduction.
 *Report increment:* baseline protocol section complete.
@@ -696,7 +696,7 @@ Load the primary PRM; implement three segmentation conventions; score the Day-4 
 `backends/`: driver interface, capability reporting, provenance metadata, `test_backend_metadata.py`. `generation/`: config-hashed sweeps, resumable checkpointing, JSONL schema, outcome taxonomy. `pools/`: content-addressed store, nested-prefix views.
 *Output:* `make generate CONFIG=…` runs, resumes after `kill -9`, and records full provenance.
 *Done when:* a killed run resumes to a complete pool and every sample carries metadata.
-*Background:* **P1 generation to N=64 begins.**
+*Background:* **P1 generation to N=32 begins.**
 
 **Day 7 · Scoring engine and budget manager · 8 h · M**
 `scoring/`: offline batch PRM in a separate process, sequential model loading, per-step arrays. `budget/`: exact accounting for policy tokens, PRM forwards, discarded beam tokens; `test_budget_accounting.py`.
@@ -706,7 +706,7 @@ Load the primary PRM; implement three segmentation conventions; score the Day-4 
 **Day 8 · Selectors, oracle, statistics · 7 h · M**
 `selectors/`: 4 MUST + free variants as pure functions; oracle pass@k. `evaluation/`: paired bootstrap (10k, BCa), McNemar, Holm–Bonferroni, difficulty banding.
 *Done when:* all selectors run over a real pool and the bootstrap reproduces a known synthetic CI.
-*Background:* P1 finishes at N=64; **P2 begins.**
+*Background:* P1 finishes at N=32; **P2 begins.**
 
 **Day 9 · Determinism, telemetry, end-to-end smoke, G4 · 7 h · M**
 `test_determinism.py` → **G4** (on the local-weights backend if in use; otherwise record `not guaranteed` and rely on artifact hashing per §27.2). `telemetry/`: decision records, trace IDs. Full smoke on 50 problems: generate → score → select → metrics → figure.
@@ -720,7 +720,7 @@ Load the primary PRM; implement three segmentation conventions; score the Day-4 
 *Output:* tagged commit; **parity test green in Week 2**; frozen design doc.
 *Report increment:* **W2 sections complete** — methodology, architecture, datasets, validity protocol, experiment design.
 *Done when:* `replay` and `gateway` demonstrably share one Controller implementation and the tag exists.
-*Background:* P2 finishes at N=64.
+*Background:* P2 finishes at N=32.
 *Decision:* **final design freeze** — no hypothesis or accept-condition changes after today.
 
 ### Week 3 — Experiments, ablations, failure analysis
@@ -730,16 +730,16 @@ Score the 100-problem slice; compute action labels; run the **full Diagnose → 
 *Output:* E0 results; **Rule 1 satisfied — expensive SHOULD work unblocked from here.**
 *Report increment:* preliminary results inserted.
 *Done when:* one figure exists for each of H1, H2, H4 at slice scale.
-*Background:* full PRM scoring; then N=128 extension **only if** on schedule (S).
+*Background:* full PRM scoring; then N=64 extension **only if** on schedule (S).
 
 **Day 12 · DIAGNOSE: landscape + search arm, G5 · 8 h · M**
-Run **E2**: landscape across actions × 5 budgets × 5 difficulty bands on P1∪P2 at N=64. Adapt beam search; wire into `budget/` so discarded beams are charged. **G5** on 20 problems.
+Run **E2**: landscape across actions × 5 budgets × 5 difficulty bands on P1∪P2 at N=32. Adapt beam search; wire into `budget/` so discarded beams are charged. **G5** on 20 problems.
 *Output:* landscape figures; oracle-action distribution; H1 partial verdict; G5 decision.
 *Background:* **E3** search budget 1 of 2 on the stratified 100–150 problems.
 *Decision:* **G5** — scope of A3.
 
 **Day 13 · DIAGNOSE: supporting analyses · 7 h · M/S**
-**E4:** crossover N\* with CI at N=64 (extended if N=128 exists); length and step-count regression (V4). Inspect 30 traces where PRM-argmax picked wrong and majority was right. Complete the **H1** verdict including A3.
+**E4:** crossover N\* with CI at N=32 (extended if N=64 exists); length and step-count regression (V4). Inspect 30 traces where PRM-argmax picked wrong and majority was right. Complete the **H1** verdict including A3.
 *Output:* crossover figure; length-bias table; failure notes; **H1 final verdict.**
 *Report increment:* Diagnose results + failure analysis inserted.
 *Background:* E3 search budget 2 of 2.
@@ -771,7 +771,7 @@ Complete the §22 contract on the Week-2 skeleton: three outcomes, anytime budge
 *Decision:* **G8.**
 
 **Day 18 · Held-out evaluation, single pass · 6 h · M**
-Generate P4 and P5 at N=64 on the same backend as dev if at all possible; score; run the **frozen** controller and selectors. One pass, no tuning. Frontier anchor on held-out. Final cost accounting.
+Generate P4 and P5 at N=32 on the same backend as dev if at all possible; score; run the **frozen** controller and selectors. One pass, no tuning. Frontier anchor on held-out. Final cost accounting.
 *Output:* held-out table; anchor numbers.
 *Done when:* held-out numbers are recorded, whatever they say.
 *Decision:* none — re-tuning is explicitly forbidden today.
@@ -792,7 +792,7 @@ README written for a stranger with no GPU and no API key. `make reproduce-headli
 | Gate | Day | Test | Pass | Fail action |
 |---|---|---|---|---|
 | **G0** | 1 | Primary policy available on ≥2 backends; pricing, logprob and seed support recorded | ≥2 backends viable | Substitute the nearest small open-weight model that is served on ≥2 backends; record in `notes/` |
-| **G1** | 4 | Allocation headroom: oracle over {A0,A1,A2} minus best fixed policy, 100 MATH-500 problems, N=64 | ≥8 pts | 4–8 pts → promote OlympiadBench to primary. <4 pts on both → weaker policy. Still <4 → mentor escalation with a written pivot memo |
+| **G1** | 4 | Allocation headroom: oracle over {A0,A1,A2} minus best fixed policy, 100 MATH-500 problems, N=32 | ≥8 pts | 4–8 pts → promote OlympiadBench to primary. <4 pts on both → weaker policy. Still <4 → mentor escalation with a written pivot memo |
 | **G2** | 3 | Chosen backend generates end to end | ≤4 h | Switch to the alternate backend from G0 |
 | **G3** | 5 | PRM step scores predict correctness, 10 problems | AUROC >0.6 | Try the other predefined segmentation conventions → next compatible PRM rung (§27.3a) → if no valid PRM configuration remains, trigger **G10** mentor decision. Any ORM or LLM-judge substitution exists only behind G10 |
 | **G4** | 9 | Determinism on the local-weights backend | pass, or `not guaranteed` recorded | If the backend cannot guarantee it, the frozen artifact plus hash becomes the reproducibility unit (§27.2). `make reproduce-headline` unaffected |
@@ -811,7 +811,7 @@ Pre-committed; each is reportable and each is logged in `notes/` whether or not 
 2. **Cheap evidence cannot predict the winning action (H2 fails).** A real limit on the adaptive-compute literature, strengthened by the feature ablation showing *which* signals fail.
 3. **Pre-hoc query text matches post-hoc evidence (H3 fails).** The cheaper signal class wins — a clean joint finding with parallel routing work.
 4. **Search never wins at matched tokens.** The action space is 3-way plus abstain.
-5. **PRM-argmax never crosses under plain majority up to N=64.** Contradicts the reward-hacking narrative for small policies.
+5. **PRM-argmax never crosses under plain majority up to N=32.** Contradicts the reward-hacking narrative for small policies.
 6. **All selectors land within noise, far below oracle.** The bottleneck is selection *information*, not the aggregation function.
 
 ## 35. Out of scope
@@ -820,8 +820,8 @@ MCTS, DVTS, lookahead. Budget forcing beyond the STRETCH verification. PRM train
 
 ## 36. Cut order if 2–3 working days are lost
 
-1. **Remaining SHOULD tier** — N=128 extension, second PRM, P3, P6, P7, third search budget, 5-class search predictor, local 32B. Saves ~3 days. All four headline hypotheses survive.
-2. **Reduce dev scale** — OlympiadBench slice A from 300 → 200 problems, search arm held at 100 problems × 2 budgets. Saves ~1.5 days. H1's A3 clause becomes descriptive; crossover may fall outside range, in which case "no crossover observed up to N=64" is the honest report.
+1. **Remaining SHOULD tier** — N=64 extension, second PRM, P3, P6, P7, third search budget, 5-class search predictor, local 32B. Saves ~3 days. All four headline hypotheses survive.
+2. **Reduce dev scale** — OlympiadBench slice A from 300 → 200 problems, search arm held at 100 problems × 2 budgets. Saves ~1.5 days. H1's A3 clause becomes descriptive; crossover may fall outside range, in which case "no crossover observed up to N=32" is the honest report.
 
 **Cannot be cut without changing the research question:** frozen pools with paired nested prefixes; the four MUST selectors including oracle pass@k; the action-space definition and oracle-action labels; the predictor with its pre-hoc comparator; random and oracle bounds in E7; exact token accounting; the frozen held-out set run once; at least one live search budget point; controller parity; the gateway.
 
