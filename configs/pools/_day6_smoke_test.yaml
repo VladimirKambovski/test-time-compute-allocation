@@ -1,0 +1,23 @@
+# Day 6 smoke test ONLY -- not a real pool config, never referenced by
+# any experiment. 3 problems x N=4, real hosted backend, used once to
+# verify run_sweeps.py's kill/resume + full-provenance behavior live
+# before trusting it enough to launch the real P1 run. See
+# notes/2026-08-23.md.
+
+policy_ref: qwen3.5-4b-smoketest
+backend_ref: policy_primary
+benchmark_id: math500-smoketest
+n: 4
+max_workers: 2
+
+benchmark:
+  dataset_id: "HuggingFaceH4/MATH-500"
+  ids_file: "notes/scratch/day6_smoke_ids.json"
+
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 1024
+  seed: null
+  thinking_mode: false
+  stop_sequences: []

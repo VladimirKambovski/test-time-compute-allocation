@@ -1,0 +1,31 @@
+# STRETCH — generalization/scale ablation, per docs/brief.md A6.
+# Also now used for G0's weaker-policy fallback check for gate G1
+# (2026-08-22, see notes/2026-08-22.md) -- G1 came back null on the
+# primary 4B policy across two benchmarks and two N values; the
+# compute-optimal-TTS literature predicts weaker policies show MORE
+# selection headroom, so this is a real check, not just a STRETCH item.
+role: secondary_policy_stretch
+model_id: "Qwen/Qwen3.5-2B"   # CORRECTED 2026-08-22: the placeholder "Qwen/Qwen3.5-1.7B" does not
+                                # exist. Qwen3.5's "Small series" is 0.8B/2B/4B/9B -- no 1.7B variant
+                                # (that naming is real for the OLDER Qwen3 generation, not Qwen3.5;
+                                # the placeholder appears to have carried it over without updating).
+                                # Post-trained/chat repo confirmed (a separate -Base also exists).
+revision: "15852e8c16360a2fea060d615a32b45270f8a8fc"   # HF commit SHA, pinned 2026-08-22,
+                                # released 2026-03-02 (same day as the 4B model)
+thinking_mode: false
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 1024
+backends:
+  - type: api_host
+    provider: hosted_endpoint
+    config_ref: "configs/backends/hosted-endpoints.yaml#policy_secondary_stretch"
+    status: confirmed         # live-tested 2026-08-22: /v1/models + a real chat completion, both HTTP 200
+    caveat: >
+      Same caveat as the primary 4B policy: serves a third-party unsloth
+      GGUF conversion via llama.cpp
+      (unsloth/Qwen3.5-2B-GGUF:BF16), not the official Qwen/Qwen3.5-2B
+      safetensors via vLLM. See configs/backends/hosted-endpoints.yaml's
+      IMPORTANT_CAVEAT on the policy_primary entry for the full reasoning
+      (applies identically here).

@@ -1,0 +1,41 @@
+# P2 -- the second dev pool (docs/brief.md's pool table: OlympiadBench
+# slice A, 300 problems, N=32 MUST). Day 10 (2026-08-23): launched
+# while waiting on the FREEZE-tag/mentor-conversation checkpoint --
+# P2 generation is orthogonal to that question (needed for Day 12's
+# landscape work regardless of how the SELECT-narrowing question
+# resolves), so there's no reason to hold it.
+#
+# Decode config matches configs/policies/qwen3.5-4b.yaml EXACTLY, same
+# as P1 -- max_tokens=1024, the FROZEN default, not the max_tokens=4096
+# one-off diagnostic condition Day 3/4 used for a specific truncation
+# investigation. A ~74% truncation rate on this benchmark at 1024 tokens
+# is already documented (notes/2026-08-20.md) and expected -- not a new
+# problem, and not something to silently "fix" by deviating from the
+# frozen decode config without explicit sign-off (CLAUDE.md invariant #3).
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary   # configs/backends/hosted-endpoints.yaml#policy_primary
+benchmark_id: olympiad-a
+n: 32
+max_workers: 10   # NOT 20 like P1 -- Day 3/4's own lesson (notes/2026-08-21.md): this
+                  # endpoint's concurrency ceiling for LONG completions is materially
+                  # lower than for MATH-500's shorter ones (concurrency=10 timeout-stormed,
+                  # concurrency=6 was the proven-safe value at max_tokens=4096; 1024 is
+                  # shorter than that diagnostic run but still much more failure-prone than
+                  # MATH-500's typical completion length). Starting at 10 (between the two
+                  # observed data points), watching checkpoint growth before raising it --
+                  # per that same day's misdiagnosis lesson (elapsed time alone is not a
+                  # reliable "is it stuck" signal).
+
+benchmark:
+  dataset_id: "Hothan/OlympiadBench"
+  config: "OE_TO_maths_en_COMP"
+  ids_file: "configs/benchmarks/data/olympiad-a-ids.json"
+
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 1024
+  seed: null
+  thinking_mode: false
+  stop_sequences: []

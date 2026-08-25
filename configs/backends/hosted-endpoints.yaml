@@ -1,15 +1,19 @@
-# Mentor-provided hosted infrastructure, added 2026-08-20. Confirmed by
-# mentor to stay up for the full four weeks -- treated as primary, not a
-# documented-but-unused fallback. All three endpoints live-tested today
-# (see notes/2026-08-20.md for the full verification transcript).
+# Mentor-provided hosted infrastructure. Original 3 endpoints added
+# 2026-08-20 (confirmed by mentor to stay up for the full four weeks --
+# treated as primary, not a documented-but-unused fallback). Full roster
+# expanded 2026-08-22 -- the mentor provided a much larger set of
+# pre-hosted endpoints than initially known, which resolved a real
+# backend blocker (see notes/2026-08-22.md: local vLLM on the raw GPU
+# servers was about to be needed for the weaker-policy check purely
+# because we didn't know these existed).
 #
-# API key for all three: stored in .env as HOSTED_ENDPOINT_API_KEY
-# (value not repeated here or anywhere else in the repo -- see .env,
-# which is confirmed excluded by .gitignore via `git check-ignore -v
-# .env`). Never hardcode the key in this file or any source file; load
-# it from the environment at runtime.
+# API key for ALL endpoints below: stored in .env as
+# HOSTED_ENDPOINT_API_KEY (value not repeated here or anywhere else in
+# the repo -- see .env, which is confirmed excluded by .gitignore via
+# `git check-ignore -v .env`). Never hardcode the key in this file or
+# any source file; load it from the environment at runtime.
 
-policy:
+policy_primary:
   role: primary_policy
   base_url: "https://qwen35-4b-bf16.deb12.smoki.mk"
   api_key_env: "HOSTED_ENDPOINT_API_KEY"
@@ -72,6 +76,72 @@ policy:
     different conditions per invariant #3, full stop, same as any other
     backend change.
 
+policy_secondary_stretch:
+  role: secondary_policy_stretch   # G1's weaker-policy fallback check, 2026-08-22 -- see notes/2026-08-22.md
+  base_url: "https://qwen35-2b.deb11.smoki.mk"
+  api_key_env: "HOSTED_ENDPOINT_API_KEY"
+  protocol: openai_compatible_chat_completions
+  server: llamacpp   # same caveat as policy_primary -- see IMPORTANT_CAVEAT there
+  served_model_id: "unsloth/Qwen3.5-2B-GGUF:BF16"   # NOT the official "Qwen/Qwen3.5-2B"
+  corrected_slug_note: >
+    configs/policies/qwen3.5-1.7b.yaml's placeholder model_id
+    ("Qwen/Qwen3.5-1.7B") does not exist -- verified 2026-08-22. The
+    Qwen3.5 "Small series" is 0.8B/2B/4B/9B; there is no 1.7B variant.
+    The placeholder appears to have carried over Qwen3-generation's
+    "1.7B" naming (which IS real, for Qwen3) without being updated for
+    Qwen3.5. Corrected slug: "Qwen/Qwen3.5-2B" (commit
+    15852e8c16360a2fea060d615a32b45270f8a8fc, released 2026-03-02,
+    confirmed post-trained/chat repo since a separate -Base also exists).
+    configs/policies/qwen3.5-1.7b.yaml itself not yet renamed/fixed --
+    only this backend entry corrected so far; fix the policy config file
+    too before this model is used beyond the weaker-policy check.
+  verified_2026-08-22:
+    - "GET /v1/models -> HTTP 200, confirms served_model_id above"
+    - "POST /v1/chat/completions with enable_thinking=false + a real math prompt -> HTTP 200, coherent step-by-step output"
+  server_reported_meta:
+    n_ctx: 32768           # note: DOUBLE policy_primary's 16384 -- context clamping is per-deployment, not uniform
+    n_ctx_train: 262144
+    n_vocab: 248320
+    n_params: 1881825088   # ~1.9B -- consistent with "2B" naming
+    ftype: "BF16"
+  note: >
+    Backend search before this endpoint was known: no working public
+    hosted API existed. The only third-party lead (DeepInfra's catalog
+    listing) showed deprecated:2026-06-11 (in the past) and
+    replaced_by:"Qwen/Qwen3.5-9B" in its own metadata; live-tested its
+    API doc page anyway rather than trusting the catalog string --
+    404'd. No other provider (Fireworks, Novita, Together) lists it at
+    all. This mentor-hosted endpoint is the only currently-known working
+    backend for this model.
+
+other_available_endpoints:
+  note: >
+    Provided by the mentor 2026-08-22, not yet verified or used --
+    recorded so they aren't lost, not because they're needed today. Same
+    base_url pattern, same api_key_env (HOSTED_ENDPOINT_API_KEY), same
+    protocol/quirks pattern as the verified entries above unless noted.
+    Verify each live (per this file's own established discipline --
+    catalog/announcement claims are not trusted here, see
+    policy_secondary_stretch's DeepInfra lesson above) before relying on
+    any of them for a real experiment.
+  entries:
+    - model: "gpt-oss-20b (Unsloth GGUF F16)"
+      base_url: "https://gpt-oss-20b.deb2.smoki.mk"
+    - model: "Qwen3.5-0.8B BF16"
+      base_url: "https://qwen35-08b.deb11.smoki.mk"
+    - model: "Gemma-4-E2B-it BF16"
+      base_url: "https://gemma4-e2b-bf16.deb12.smoki.mk"
+    - model: "Qwen3.5-9B UD-Q4_K_XL"
+      base_url: "https://qwen35-9b.deb12.smoki.mk"
+      quantization_note: >
+        "UD-Q4_K_XL" is an actual quantization level (unlike the BF16
+        entries elsewhere in this file), unsloth's "Unsloth Dynamic"
+        4-bit variant -- genuinely lower precision than the primary/
+        secondary policy endpoints, not just a different distributor/
+        engine. Treat as a materially different condition if ever used,
+        per §27.6's compatibility contract (quantization is contract-
+        relevant).
+
 prm_primary:
   role: primary_prm
   base_url: "https://math-prm.deb11.smoki.mk"
@@ -128,10 +198,36 @@ prm_fallback:
     server already handles itself.
 
 raw_gpu_servers:
+  hosts: ["194.149.138.12", "194.149.138.21"]
   note: >
-    Two raw GPU servers with SSH access were also provided
-    (194.149.138.12, 194.149.138.21), separate from the hosted endpoints
-    above -- available if project-controlled compute is needed beyond
-    what's hosted. Deliberately left undocumented beyond this note per
-    today's task scope; whether we SSH into these directly or just use
-    the hosted endpoints for pool generation is a later decision.
+    Separate from the hosted endpoints above -- available if project-
+    controlled compute is ever needed beyond what's hosted.
+
+    2026-08-22 attempt: SSH under the local machine's own username
+    ("vladimir-kambovski") + its id_ed25519 key -- rejected on both
+    hosts, "Permission denied (publickey,password)". Correct credential
+    unresolved at the time.
+
+    **2026-08-23: RESOLVED for one of the two hosts.** `ssh
+    root@194.149.138.21` works cleanly -- `root` was the missing
+    credential, not a key/username problem on the local side.
+    `root@194.149.138.12` still rejects the same way; only .21 is
+    actually reachable as of this writing.
+
+    **.21 (hostname `deb11`) is NOT idle capacity -- verified live via
+    `nvidia-smi` before assuming otherwise.** Its single RTX 3090 (24GB)
+    is at 98% VRAM usage (24,080/24,576 MiB) from three already-running
+    processes: two `llama-server` instances (almost certainly
+    `qwen35-2b`/`policy_secondary_stretch` and the unverified
+    `Qwen3.5-0.8B` endpoint -- both hosted at this same `deb11` domain
+    above) and one `/opt/prm-server/bin/python` process at 16.4GB --
+    almost certainly **`prm_primary`**, the PRM endpoint Day 5/7/9's
+    scoring pipeline actively depends on. ~500MB VRAM free; 683GB disk
+    free (`df -h /`), but disk was never the constraint. Loading
+    anything else onto this GPU risks OOM-crashing `prm_primary` mid-use
+    by another part of the pipeline -- check this headroom again,
+    live, before scheduling any real workload here, don't assume it's
+    still true from this note alone.
+
+    `.12`'s GPU status is unknown -- root access to it has not been
+    resolved, so its `nvidia-smi` has never been checked.

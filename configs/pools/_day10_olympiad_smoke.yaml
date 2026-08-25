@@ -1,0 +1,18 @@
+# Day 10 smoke test ONLY -- verifies the new OlympiadBench fetcher +
+# generation path before trusting it for the real 300-problem P2 run.
+policy_ref: qwen3.5-4b-smoketest
+backend_ref: policy_primary
+benchmark_id: olympiad-a-smoketest
+n: 2
+max_workers: 2
+benchmark:
+  dataset_id: "Hothan/OlympiadBench"
+  config: "OE_TO_maths_en_COMP"
+  ids_file: "notes/scratch/day10_olympiad_smoke_ids.json"
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 1024
+  seed: null
+  thinking_mode: false
+  stop_sequences: []

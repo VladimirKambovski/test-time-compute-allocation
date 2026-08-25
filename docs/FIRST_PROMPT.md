@@ -11,7 +11,7 @@ Read CLAUDE.md in full, then read docs/roadmap.md's Day 1 section.
 Do not write any implementation code yet. Before touching code:
 
 1. Confirm you understand the frozen model choices (Qwen3.5-4B primary
-   policy, Qwen2.5-Math-PRM-7B primary PRM) and the five non-negotiable
+   policy, Qwen2.5-Math-PRM-7B primary PRM) and the nine non-negotiable
    invariants in CLAUDE.md. Summarize them back to me in your own words
    so I can confirm you've internalized them, not just skimmed them.
 

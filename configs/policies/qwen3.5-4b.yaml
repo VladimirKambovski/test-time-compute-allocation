@@ -25,7 +25,7 @@ backends:
   - type: api_host          # DEFAULT backend as of 2026-08-20 -- mentor-provided, confirmed
                               # stable for the full four weeks, not a fallback.
     provider: hosted_endpoint
-    config_ref: "configs/backends/hosted-endpoints.yaml#policy"
+    config_ref: "configs/backends/hosted-endpoints.yaml#policy_primary"
     status: confirmed         # live-tested 2026-08-20: /v1/models, /v1/chat/completions with
                               # enable_thinking=false, logprobs, all confirmed working.
     caveat: >

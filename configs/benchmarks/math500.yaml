@@ -1,5 +1,23 @@
 role: reproduction_anchor
 dataset_id: "HuggingFaceH4/MATH-500"
+dataset_revision: "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be"   # HF dataset commit SHA, pinned Day 3
 n_problems: 500
 split: dev
 purpose: baseline_reproduction_B1_B2_B3   # compare against published maj@k / pass@k / PRM curves
+
+dev_100:
+  role: day4_g1_baseline
+  n_problems: 100
+  problem_id_field: "unique_id"
+  problem_ids_file: "configs/benchmarks/data/math500-dev100-ids.json"
+  selection: >
+    Day 4: fetched all 500 MATH-500 rows, stratified by the dataset's own
+    `level` field (1-5) proportional to each level's share of the full
+    500 (level 1: 43/500 -> 9 picked; level 2: 90/500 -> 18; level 3:
+    105/500 -> 21; level 4: 128/500 -> 26; level 5: 134/500 -> 26).
+    Shuffled each level bucket with Python stdlib
+    `random.Random(20260821).shuffle()`, took the front of each shuffled
+    bucket per the proportional counts above. This is the dev subset used
+    for Day 4's G1 baseline pool -- not held-out, freely reusable, but
+    frozen here so the same 100 problems are used consistently across
+    Day 4/5/8 rather than redrawn each time.

@@ -87,13 +87,28 @@ logged in `notes/YYYY-MM-DD.md` regardless of pass/fail.
   discarded-beam case.
 
 ### Day 8 — Selectors, oracle, statistics [MUST]
-- [ ] `src/marginal_token/selectors/`: plain majority, oracle pass@k,
+- [x] **Before adding new selectors:** resolve the tie/no-vote handling
+      discrepancy between `selectors/basic.py::plain_majority`
+      (excludes ties from the denominator) and
+      `notes/scratch/day4_analysis.py::deterministic_action_values` (the
+      frozen G1 baseline script -- counts ties as incorrect, denominator
+      never shrinks). **Resolved 2026-08-23:** added
+      `selectors/basic.py::accuracy()` as the one canonical aggregator
+      (tie/no-vote counts as incorrect, matching
+      `deterministic_action_values`); `plain_majority` itself unchanged.
+      Cross-checked against the real Day-4/5 pool -- reproduces 0.730
+      exactly for both plain majority and PRM-weighted majority
+      (`tests/test_selectors.py`).
+- [x] `src/marginal_token/selectors/`: plain majority, oracle pass@k,
       PRM-weighted majority, PRM-argmax [MUST]; self-certainty,
-      length-normalized, cluster-then-vote, PRM reductions [SHOULD].
-- [ ] `src/marginal_token/evaluation/`: paired bootstrap (10k, BCa),
-      McNemar, Holm–Bonferroni, difficulty banding.
-- **Done when:** all MUST selectors run over a real pool; bootstrap
-  reproduces a known CI on synthetic data.
+      length-normalized, cluster-then-vote, PRM reductions [SHOULD --
+      not built yet].
+- [x] `src/marginal_token/evaluation/`: paired bootstrap (10k, BCa),
+      McNemar, Holm–Bonferroni, difficulty banding. (Already built on
+      the Day-4 safe list; first tested 2026-08-23.)
+- **Done when:** all MUST selectors run over a real pool (✓ -- real
+  100-problem N=32 pool, `test_selectors.py`); bootstrap reproduces a
+  known CI on synthetic data (✓ -- `test_evaluation_stats.py`).
 
 ### Day 9 — Determinism, telemetry, smoke test, Gate G4 [MUST]
 - [ ] `tests/test_determinism.py` → **G4** (local backend: byte-identity;

@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from math_verify import parse
-
 from marginal_token.answers.equivalence import _raw_verify
 from marginal_token.answers.taxonomy import FailureStatus
+from marginal_token.answers.thread_safety import safe_parse as parse
 
 _BOXED_MARKER = "\\boxed{"
 

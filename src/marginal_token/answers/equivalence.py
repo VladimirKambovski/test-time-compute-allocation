@@ -44,10 +44,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from math_verify import parse, verify
 from math_verify.errors import TimeoutException
 
 from marginal_token.answers.taxonomy import FailureStatus
+from marginal_token.answers.thread_safety import safe_parse as parse
+from marginal_token.answers.thread_safety import safe_verify as verify
 
 
 def _raw_verify(gold: Any, target: Any, timeout_seconds: int = 5) -> bool | None:

@@ -4,9 +4,22 @@ __pycache__/
 .env
 *.egg-info/
 
-# Pool artifacts are large and regenerable from configs -- do not commit.
-# Exception: keep small fixture files under tests/fixtures/.
+# Pool/score artifacts are large and regenerable from configs -- do not
+# commit. Exception: keep small fixture files under tests/fixtures/.
+# NOTE (2026-08-24, Day 10 freeze prep): this rule originally said
+# `data/pools/**`, but the actual implementation (pools/store.py's
+# `PoolStore`, generation/run_sweeps.py's `DEFAULT_POOL_ROOT`) puts real
+# pool/score data under `results/pools/` and `results/scores/` -- the
+# old pattern never matched anything real. Caught before it caused
+# damage: `results/pools/` alone is currently 17GB of real P1+P2 data
+# that would otherwise have gone straight into git history on the next
+# commit. `results/figures/` is deliberately NOT excluded here -- small,
+# non-regenerable-for-free artifacts (the actual headline figures) are
+# meant to be committed, per README's own "results/ ... generated,
+# not hand-edited" framing (generated once, then kept, not excluded).
 data/pools/**
+results/pools/**
+results/scores/**
 !tests/fixtures/**
 
 # Local secrets
