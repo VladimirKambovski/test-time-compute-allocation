@@ -1,0 +1,26 @@
+fetching MATH-500 (all 500) + OlympiadBench-A (canonical 300 ids)...
+got 500 MATH-500, 254/300 OlympiadBench-A usable
+  150 processed
+  300 processed
+  450 processed
+  600 processed
+  750 processed
+
+total usable problems (canonical, deduped): 754
+class distribution: {'stop': 420, 'abstain': 273, 'sample': 55, 'select': 6}
+
+Detective macro-AUROC (CORRECTED, canonical-only): 0.8692  (previous buggy run: 0.8797)
+  abstain: precision=0.841 recall=0.989 f1=0.909 support=273
+  sample: precision=0.778 recall=0.127 f1=0.219 support=55
+  select: precision=0.000 recall=0.000 f1=0.000 support=6
+  stop: precision=0.991 recall=1.000 f1=0.995 support=420
+overall accuracy: 0.9244 (previous buggy run: 0.9009)
+trivial majority-class accuracy: 0.5570
+
+fitting Fortune Teller (pre-hoc)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 1808.33it/s]
+Fortune Teller macro-AUROC (CORRECTED): 0.6479  (previous buggy run: 0.7263)
+
+H2 (Detective >= 0.70): 0.8692 -> ACCEPT
+H3 (Detective - Fortune Teller >= 0.05): 0.2213 -> ACCEPT

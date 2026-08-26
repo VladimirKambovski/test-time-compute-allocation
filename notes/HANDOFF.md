@@ -13,19 +13,27 @@ rewrite — see the 2026-08-26 marked blocks below for what changed).
 
 ## Where we actually are right now
 
-Roadmap position: **Day 13, in progress, with Day 14's core E5/G6/H2
-work pulled forward and done** (real grouped-CV macro-AUROC 0.88, H2
-accepted — see "Real findings" below; user has a hard 3-4 real-day
-deadline for the whole remaining project as of 2026-08-26, roadmap
-compression is now the operating reality, not a hypothetical). Both dev pools are fully
+Roadmap position: **Day 15's core work (E5-E8, G6, H2/H3/H4) is now
+done**, pulled forward from Days 13-15 under a hard 3-4 real-day
+deadline for the whole remaining project as of 2026-08-26 (roadmap
+compression is the operating reality, not a hypothetical). **Real,
+disclosed bug found and fixed same night: a duplicate-pool-directory
+issue inflated the aggregate CV scripts (E5/day14/E7) — traced,
+verified (0 problems missing under canonical-only enumeration), and
+all headline verdicts reran clean. H2/H3 held (H3 even stronger); H4
+rejects as anticipated.** See "Real findings" below for the full
+numbers. Both dev pools are fully
 generated and fully scored (a first for this project — no more waiting
 on generation for anything currently planned). Gate G9 has passed.
-**FREEZE is decided but not yet executed** — held over from Day 12
-specifically to fold in the Day 13 temperature-ablation finding and its
-band-landscape caveat (see "Real findings" and "Git state" below) before
-the commit/tag happen, per explicit instruction that a check meant to
-inform a frozen decision has to gate it, not follow opportunistically.
-Still the single most important pending action.
+**FREEZE EXECUTED 2026-08-26** — commit `c6c63a1` on `main`, tag
+`design-frozen`, both pushed and verified against `origin`. Decided and
+run without mentor confirmation under the 3-4-day deadline, disclosed
+not hidden (see "Meta-decision" below). Note: an earlier version of
+this commit briefly included `CLAUDE.md`/`Makefile` by mistake, caught
+by the user and corrected same night via a contained rewrite of just
+that one commit (never rewrote the separately-pushed `f59ae65`) —
+verified clean on GitHub afterward. Both files remain locally untracked
+per explicit instruction.
 
 ### The two load-bearing decisions (frozen, only revisable by explicit new instruction)
 1. **Gate G1 FAILED for the primary policy (Qwen3.5-4B).** Oracle-vs-
@@ -232,8 +240,39 @@ never re-run after a fix, since no fix was attempted).
   accuracy tie or the AUROC win in isolation. Still outstanding:
   difficulty-tier/full-oracle ceilings (cheap), feature ablation (A5),
   probe-size ablation (SHOULD). Script:
-  `notes/scratch/day14_e5_full_comparators.py`. Full writeup:
-  `notes/2026-08-26.md`.
+  `notes/scratch/day14_e5_full_comparators.py`.
+  **UPDATE same night, real bug found and fixed:** discovered the E5/
+  day14 scripts (and the first draft of Day 15's E7) enumerated
+  problems via a plain directory glob, not `compute_pool_id` — 49
+  problems have multiple valid on-disk pools (stray/historical extras,
+  concentrated in hard/failure-prone problems, likely retry artifacts)
+  and got double/triple-counted. Verified the fix first (0 canonical
+  P1/P2 pools missing on disk), then reran everything.
+  **Corrected numbers: Detective macro-AUROC 0.8692 (was 0.8797),
+  Fortune Teller 0.6479 (was 0.7263), H3 margin 0.2213 (was 0.1534,
+  i.e. STRONGER after the fix). Both H2 and H3 verdicts hold.** n=754
+  now matches the project's already-canonical figure exactly (used
+  everywhere else for the E2 landscape/SELECT rate). The targeted
+  ablation comparisons (temp/max_tokens) were NOT affected — those
+  always loaded canonical pools explicitly, verified. Scripts:
+  `notes/scratch/day15_e5_corrected.py`.
+  **Day 15 (E7/E8, H4) also done, canonical-only from the start:**
+  7 policies x 5 budget levels, n=754. **H4: Detective beats the best
+  fixed policy at 0/5 levels (need >=3/5) — REJECT**, matching the
+  Day-11 preliminary and everything else established (anticipated, not
+  a surprise). E8: Miser (free) gets 55.7% accuracy for 0 tokens;
+  Spendthrift spends ~26,577 tokens/problem for only 7.2pp more
+  (62.9%); SAMPLE beats SELECT on cost-per-correct too (42,277 vs
+  43,289 tokens) — SAMPLE strictly dominates SELECT, cheaper AND more
+  accurate. Good, quantified illustration of the project's actual
+  positive story (early-stopping value) for the report. Two disclosed
+  assumptions: PRM forward cost = one sample's token cost (no
+  documented value exists anywhere to use instead), and E7's SELECT
+  label is the REAL PRM-selector's achieved correctness (2/754), not
+  E5's oracle-ceiling definition (6/754) — different, both valid
+  questions, not a contradiction. Script:
+  `notes/scratch/day15_e7_e8_pareto_corrected.py`. Full writeup for
+  everything above: `notes/2026-08-26.md`.
 - **Temperature was never varied.** Fixed at 0.8 (top_p 0.95) for
   literally every sample generated this entire project. A small,
   targeted diagnostic (~20-25 problems, N=32, same everything except a

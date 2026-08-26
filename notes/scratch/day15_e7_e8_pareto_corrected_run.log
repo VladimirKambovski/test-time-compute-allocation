@@ -1,0 +1,41 @@
+fetching MATH-500 + OlympiadBench-A (text + gold)...
+got 500 MATH-500, 580 OlympiadBench-A rows
+  150 processed
+  300 processed
+  450 processed
+  600 processed
+  750 processed
+
+total usable problems: 754 (of 754 scanned, 0 had no PRM scores found)
+class distribution: {'abstain': 277, 'sample': 55, 'select': 2, 'stop': 420}
+
+fitting Detective (post-hoc)...
+fitting Fortune Teller (pre-hoc)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 3701.50it/s]
+
+=== E7: accuracy per policy per budget level (n=754 problems) ===
+policy                B=2      B=4      B=8     B=16     B=32
+miser              0.5570   0.5570   0.5570   0.5570   0.5570
+spendthrift        0.4987   0.5570   0.5796   0.6127   0.6286
+uniform_select     0.4549   0.5133   0.5584   0.5809   0.6141
+gambler            0.5279   0.5570   0.5703   0.5942   0.6021
+oracle             0.5584   0.5584   0.5809   0.6141   0.6326
+fortune_teller     0.4735   0.4735   0.4735   0.4735   0.4735
+detective          0.5570   0.5570   0.5610   0.5623   0.5663
+
+=== H4: does Detective beat the best FIXED policy at each budget level? ===
+  B=2: Detective=0.5570 vs best_fixed=0.5570 -> does not beat
+  B=4: Detective=0.5570 vs best_fixed=0.5570 -> does not beat
+  B=8: Detective=0.5610 vs best_fixed=0.5796 -> does not beat
+  B=16: Detective=0.5623 vs best_fixed=0.6127 -> does not beat
+  B=32: Detective=0.5663 vs best_fixed=0.6286 -> does not beat
+
+H4 verdict: Detective beats best fixed policy at 0/5 budget levels (need >=3/5 to accept) -> REJECT
+
+=== E8: mean token-equivalent cost per problem, at B=32 (PRM forward assumed = 1 sample's cost) ===
+  miser: mean_cost=0.0 tokens/problem, accuracy=0.5570, cost_per_correct_answer=0.0 tokens
+  spendthrift: mean_cost=26577.1 tokens/problem, accuracy=0.6286, cost_per_correct_answer=42276.7 tokens
+  uniform_select: mean_cost=26582.2 tokens/problem, accuracy=0.6141, cost_per_correct_answer=43289.4 tokens
+
+(E8 note: SELECT's cost-per-correct here inherits the disclosed prm_forward_cost_tokens=mean_len assumption -- a real, sourced PRM cost figure would change this number, not the qualitative story given SELECT's already-confirmed near-zero win rate.)
