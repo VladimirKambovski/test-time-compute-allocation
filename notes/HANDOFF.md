@@ -13,7 +13,14 @@ rewrite — see the 2026-08-26 marked blocks below for what changed).
 
 ## Where we actually are right now
 
-Roadmap position: **Day 17 done too** (`ui/demo.py`, a deliberately
+Roadmap position: **Day 18 (held-out generation, P4+P5) launched**,
+running in the background (~5.6h+ estimated) as of this update. G8
+fired (Day 17 done), pre-flight-verified both id-list hashes match the
+Day-2 frozen values and P4/P5 are disjoint from the dev sets before
+generating anything. New AIME25 fetcher (no working `/rows` preview for
+that dataset, fetches raw pinned-revision JSONL instead), smoke-tested
+live. **Per invariant #8: one pass, no re-tuning after seeing results.**
+**Day 17 done too** (`ui/demo.py`, a deliberately
 scoped-down benchmark-mode CLI walkthrough, NOT the full panel UI --
 protecting reproducibility/held-out/report time per explicit
 instruction. Frozen Detective model at `results/models/detective_frozen.joblib`.

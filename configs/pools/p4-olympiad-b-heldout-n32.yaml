@@ -1,0 +1,34 @@
+# P4 -- held-out, in-distribution (OlympiadBench slice B, 100 problems,
+# N=32 MUST). Day 18. Pre-flight verified before this run: the frozen
+# id list's SHA-256 matches configs/benchmarks/heldout-olympiad-b.yaml's
+# documented hash exactly, and the 100 ids are confirmed disjoint from
+# olympiad-a (P2's dev set) by direct set comparison. G8 has fired
+# (Day 17 done) -- this is the planned final evaluation, one pass, no
+# re-tuning after seeing these results, per docs/brief.md invariant #8
+# and this config's own `rule` field.
+#
+# Decode config matches configs/policies/qwen3.5-4b.yaml and P2's
+# config EXACTLY -- max_tokens=1024, the frozen default. Same dataset/
+# config as P2 (OlympiadBench, OE_TO_maths_en_COMP), just the held-out
+# slice-B id list instead of slice A -- reuses the existing, already
+# code-path-tested fetch_olympiad_bench_problems, not new fetcher code.
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary
+benchmark_id: olympiad-b-heldout
+n: 32
+max_workers: 10   # matches P2's exact concurrency (same benchmark/config, same
+                  # completion-length regime, already proven safe at this value)
+
+benchmark:
+  dataset_id: "Hothan/OlympiadBench"
+  config: "OE_TO_maths_en_COMP"
+  ids_file: "configs/benchmarks/data/heldout-olympiad-b-ids.json"
+
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 1024
+  seed: null
+  thinking_mode: false
+  stop_sequences: []

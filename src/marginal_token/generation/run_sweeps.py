@@ -112,6 +112,41 @@ def fetch_olympiad_bench_problems(
     return rows
 
 
+def fetch_aime25_problems(dataset_revision: str, ids_file: str) -> list[tuple[str, str]]:
+    """Day 18: P5's fetcher. `opencompass/AIME2025` has no `/rows`
+    preview available (datasets-server returns a persistent 500 for
+    this dataset specifically, verified live before writing this --
+    /info and /parquet both work fine, so this is a preview-cache gap,
+    not a broken dataset). Fetches the raw JSONL directly at the
+    PINNED revision instead -- arguably better than the preview route
+    anyway, since it's guaranteed byte-identical to what was frozen
+    Day 2, not "whatever the preview cache currently has."
+
+    IDs are minted, not native (per heldout-aime25.yaml: this dataset
+    has no per-row id field) -- "{config}-{zero_padded_row_index}",
+    e.g. "AIME2025-I-00".."AIME2025-II-14", matching the exact scheme
+    already frozen in configs/benchmarks/data/heldout-aime25-ids.json.
+    """
+    wanted = set(json.load(open(ids_file)))
+    rows: list[tuple[str, str]] = []
+    for config, fname in [("AIME2025-I", "aime2025-I.jsonl"), ("AIME2025-II", "aime2025-II.jsonl")]:
+        url = f"https://huggingface.co/datasets/opencompass/AIME2025/resolve/{dataset_revision}/{fname}"
+        text = ""
+        for _attempt in range(3):
+            try:
+                with urllib.request.urlopen(url, timeout=30) as resp:
+                    text = resp.read().decode("utf-8")
+                break
+            except Exception:
+                time.sleep(2)
+        for i, line in enumerate(text.strip().split("\n")):
+            row = json.loads(line)
+            problem_id = f"{config}-{i:02d}"
+            if problem_id in wanted:
+                rows.append((problem_id, row["question"]))
+    return rows
+
+
 def load_pool_config(path: str) -> dict:
     with open(path) as f:
         return yaml.safe_load(f)
@@ -143,6 +178,8 @@ def main(argv: list[str] | None = None) -> None:
         problems = fetch_math500_problems(dataset_id, benchmark.get("ids_file"))
     elif dataset_id == "Hothan/OlympiadBench":
         problems = fetch_olympiad_bench_problems(dataset_id, benchmark["config"], benchmark["ids_file"])
+    elif dataset_id == "opencompass/AIME2025":
+        problems = fetch_aime25_problems(benchmark["dataset_revision"], benchmark["ids_file"])
     else:
         raise NotImplementedError(f"No fetcher wired up yet for {dataset_id!r}.")
     print(f"{len(problems)} problems loaded")

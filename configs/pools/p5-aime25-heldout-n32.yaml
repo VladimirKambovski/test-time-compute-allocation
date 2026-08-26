@@ -1,0 +1,46 @@
+# P5 -- held-out, out-of-distribution (AIME25, 30 problems, N=32 MUST).
+# Day 18. Pre-flight verified before this run: the frozen id list's
+# SHA-256 matches configs/benchmarks/heldout-aime25.yaml's documented
+# hash exactly. G8 has fired (Day 17 done) -- this is the planned final
+# evaluation, one pass, no re-tuning after seeing these results.
+#
+# n=30 is too small for means/CIs (heldout-aime25.yaml: statistics:
+# ordinal_only) -- report medians/ordinal statements only, per the
+# honesty rule (docs/brief.md section 19), same MIN_REPLICATES_FOR_INFERENTIAL_STATS
+# floor evaluation/stats.py already enforces elsewhere.
+#
+# New dataset for this project -- opencompass/AIME2025 has no /rows
+# preview available (datasets-server 500s on this dataset specifically,
+# verified live; /info and /parquet both work fine). Fetches the raw
+# JSONL directly at the pinned revision instead
+# (generation/run_sweeps.py::fetch_aime25_problems, new this session,
+# smoke-tested live before this launch: 30/30 ids match the frozen
+# list exactly).
+#
+# Decode config matches the frozen default -- max_tokens=1024, temp=0.8,
+# top_p=0.95, same as every other pool. max_workers kept conservative
+# (6, not P2's 10) -- AIME problems are genuinely hard, multi-step
+# competition math, likely to produce long completions similar to
+# OlympiadBench's failure-prone regime, and this is a NEW dataset never
+# generated before on this backend -- no prior data to justify a higher
+# concurrency, and only 30 problems total means the wall-clock cost of
+# being conservative here is small.
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary
+benchmark_id: aime25-heldout
+n: 32
+max_workers: 6
+
+benchmark:
+  dataset_id: "opencompass/AIME2025"
+  dataset_revision: "a6ad95f611d72cf628a80b58bd0432ef6638f958"
+  ids_file: "configs/benchmarks/data/heldout-aime25-ids.json"
+
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 1024
+  seed: null
+  thinking_mode: false
+  stop_sequences: []
