@@ -1,0 +1,7 @@
+fetching gold answers...
+got 500 MATH-500, 254/300 OlympiadBench-A
+total training rows: 754
+class distribution: {'stop': 420, 'abstain': 273, 'sample': 55, 'select': 6}
+
+froze model to results/models/detective_frozen.joblib
+wrote metadata to results/models/detective_frozen_meta.json

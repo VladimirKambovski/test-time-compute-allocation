@@ -1,0 +1,88 @@
+{
+  "frozen_at": "2026-08-26 (Day 17, per docs/brief.md section 16 Protocol: 'coefficients frozen and tagged before Day 18')",
+  "n_training_rows": 754,
+  "class_distribution": {
+    "stop": 420,
+    "abstain": 273,
+    "sample": 55,
+    "select": 6
+  },
+  "feature_names": [
+    "top1_vote_fraction",
+    "top2_margin",
+    "normalized_entropy",
+    "distinct_answer_count",
+    "mean_output_length",
+    "var_output_length",
+    "mean_step_count",
+    "extraction_failure_fraction",
+    "truncation_fraction",
+    "mean_logprob",
+    "min_logprob",
+    "self_certainty",
+    "cumulative_logprob_spread"
+  ],
+  "coefficients_by_class_and_feature": {
+    "abstain": {
+      "top1_vote_fraction": -0.46485009562924545,
+      "top2_margin": -0.46247395276301806,
+      "normalized_entropy": -0.02745931197295552,
+      "distinct_answer_count": -1.3091497511642756,
+      "mean_output_length": 0.028045190726322868,
+      "var_output_length": 0.35866232569418177,
+      "mean_step_count": -0.6476600229731321,
+      "extraction_failure_fraction": 0.4626136862746029,
+      "truncation_fraction": 0.4626136862746029,
+      "mean_logprob": 0.0860779440369713,
+      "min_logprob": -0.01501974942001121,
+      "self_certainty": -0.11810830945821799,
+      "cumulative_logprob_spread": 0.11659913684632012
+    },
+    "sample": {
+      "top1_vote_fraction": -0.8078263268695888,
+      "top2_margin": -0.8917314353167738,
+      "normalized_entropy": 0.5209077327273988,
+      "distinct_answer_count": -0.48185515663471234,
+      "mean_output_length": -0.8160036153609079,
+      "var_output_length": -0.44997847572185146,
+      "mean_step_count": 0.1494088434155878,
+      "extraction_failure_fraction": 0.19853563299894847,
+      "truncation_fraction": 0.19853563299894847,
+      "mean_logprob": 0.2883113360294408,
+      "min_logprob": -0.10676301184366026,
+      "self_certainty": -0.024277717364342817,
+      "cumulative_logprob_spread": -0.07471200354408752
+    },
+    "select": {
+      "top1_vote_fraction": -0.3947870143242629,
+      "top2_margin": -0.34101745232311453,
+      "normalized_entropy": 0.08484133128441237,
+      "distinct_answer_count": 0.7061478450599052,
+      "mean_output_length": 0.0801080639372096,
+      "var_output_length": 0.023135705616576224,
+      "mean_step_count": 0.2496975895453451,
+      "extraction_failure_fraction": -0.028687754831944634,
+      "truncation_fraction": -0.028687754831944634,
+      "mean_logprob": -0.22210771266801024,
+      "min_logprob": 0.10460301716214442,
+      "self_certainty": -0.30005218155641106,
+      "cumulative_logprob_spread": 0.1453211119382276
+    },
+    "stop": {
+      "top1_vote_fraction": 1.6674634368231007,
+      "top2_margin": 1.6952228404029126,
+      "normalized_entropy": -0.5782897520388587,
+      "distinct_answer_count": 1.0848570627390846,
+      "mean_output_length": 0.7078503606973753,
+      "var_output_length": 0.06818044441109597,
+      "mean_step_count": 0.24855359001219887,
+      "extraction_failure_fraction": -0.6324615644416075,
+      "truncation_fraction": -0.6324615644416075,
+      "mean_logprob": -0.1522815673983997,
+      "min_logprob": 0.01717974410152487,
+      "self_certainty": 0.44243820837896924,
+      "cumulative_logprob_spread": -0.18720824524045893
+    }
+  },
+  "note": "Fit once on ALL 754 canonical P1+P2 problems (not CV-folded -- this is the deployed model, CV was for evaluating generalization in day15_e5_corrected.py). macro-AUROC under proper held-out CV was 0.8692 (notes/2026-08-26.md) -- THIS specific fit's in-sample accuracy will look better than that and should not be quoted as the real performance number."
+}

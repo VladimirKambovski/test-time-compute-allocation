@@ -13,7 +13,13 @@ rewrite — see the 2026-08-26 marked blocks below for what changed).
 
 ## Where we actually are right now
 
-Roadmap position: **Day 16 done too** (the `/solve` contract is
+Roadmap position: **Day 17 done too** (`ui/demo.py`, a deliberately
+scoped-down benchmark-mode CLI walkthrough, NOT the full panel UI --
+protecting reproducibility/held-out/report time per explicit
+instruction. Frozen Detective model at `results/models/detective_frozen.joblib`.
+A real bug caught live while testing — stringifying the answer before
+equivalence-checking broke correctness display — fixed and reverified.
+See "Real findings" below). **Day 16 done too** (the `/solve` contract is
 complete — three real outcomes, machine-readable decline reason, real
 live-mode generation for the escalated path, anytime budget exhaustion,
 parity still green at 114/115 tests). **Days 13-15's core work
