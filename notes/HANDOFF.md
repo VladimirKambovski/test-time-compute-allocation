@@ -13,8 +13,11 @@ rewrite — see the 2026-08-26 marked blocks below for what changed).
 
 ## Where we actually are right now
 
-Roadmap position: **Day 15's core work (E5-E8, G6, H2/H3/H4) is now
-done**, pulled forward from Days 13-15 under a hard 3-4 real-day
+Roadmap position: **Day 16 done too** (the `/solve` contract is
+complete — three real outcomes, machine-readable decline reason, real
+live-mode generation for the escalated path, anytime budget exhaustion,
+parity still green at 114/115 tests). **Days 13-15's core work
+(E5-E8, G6, H2/H3/H4) is done**, pulled forward from Days 13-15 under a hard 3-4 real-day
 deadline for the whole remaining project as of 2026-08-26 (roadmap
 compression is the operating reality, not a hypothetical). **Real,
 disclosed bug found and fixed same night: a duplicate-pool-directory
