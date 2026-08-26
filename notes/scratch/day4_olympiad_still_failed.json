@@ -1,0 +1,470 @@
+[
+  {
+    "problem_id": "1606",
+    "sample_idx": 0,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 1,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 2,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 3,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 4,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 5,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 6,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 7,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 8,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 9,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 10,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 11,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 12,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 13,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 14,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 15,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 16,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 17,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 18,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 19,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 20,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 21,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 22,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 23,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 24,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 25,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 26,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 27,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 28,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 29,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 30,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1606",
+    "sample_idx": 31,
+    "gold_answer": "2",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 0,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 1,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 2,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 3,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 4,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 5,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 6,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 7,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 8,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 9,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 10,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 11,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 12,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 13,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 14,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 15,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 16,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 17,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 20,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "problem_id": "1833",
+    "sample_idx": 30,
+    "gold_answer": "$(3,2)$",
+    "model_prediction": null,
+    "finish_reason": null,
+    "usage": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  }
+]

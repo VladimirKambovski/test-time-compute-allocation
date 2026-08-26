@@ -1,0 +1,5 @@
+fetching problems for HuggingFaceH4/MATH-500 (full set)...
+500 problems loaded
+pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='math500' N=32
+completed 15980 samples in 872.6min, 20 failed
+first few failures: [('test/algebra/2700.json', 27, 'The read operation timed out'), ('test/algebra/2700.json', 28, 'The read operation timed out'), ('test/algebra/2700.json', 29, 'The read operation timed out'), ('test/algebra/2700.json', 30, 'The read operation timed out'), ('test/algebra/2700.json', 31, 'The read operation timed out')]

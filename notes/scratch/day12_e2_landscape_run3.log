@@ -1,0 +1,24 @@
+P1 (MATH-500): 500 problems, P2 (OlympiadBench-A): 300 problems
+gold answers: 500 MATH-500, 254/300 OlympiadBench-A usable
+  100/754 problems processed
+  200/754 problems processed
+  300/754 problems processed
+  400/754 problems processed
+  500/754 problems processed
+  600/754 problems processed
+  700/754 problems processed
+
+usable: 754 total (across both benchmarks)
+
+oracle action distribution (P1 union P2, N=32): {'abstain': 273, 'stop': 420, 'sample': 55, 'select': 6}
+SELECT-only rate: 6/754 = 0.8%
+
+=== E2 landscape: accuracy by difficulty band (0=hardest, 4=easiest) ===
+  band     n    STOP  SAMPLE  SELECT_ceil  oracle  best_fixed   gap(pp)
+     0   151   0.000   0.000        0.000   0.000       0.000      0.00
+     1   151   0.053   0.152        0.192   0.192       0.152      3.97
+     2   151   0.742   0.993        1.000   1.000       0.993      0.66
+     3   151   1.000   1.000        1.000   1.000       1.000      0.00
+     4   150   0.993   1.000        1.000   1.000       1.000      0.00
+
+(Full P1+P2 landscape at N=32 fixed budget. The 5-budget-level axis from E2's full design is a natural follow-up; this pass establishes the difficulty-band structure and the combined-benchmark oracle distribution.)

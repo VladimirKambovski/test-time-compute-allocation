@@ -1,0 +1,45 @@
+# Day 13, third ablation: does the "hardest 20% has a 0.000 ceiling for
+# every action, nothing works regardless of strategy" claim (E2
+# landscape, 2026-08-24) hold up, or is it a token-budget artifact --
+# directly testing the controller-usefulness question raised mid-session
+# (most problems resolve to STOP/ABSTAIN because that's what the oracle
+# says, and ABSTAIN is suspiciously concentrated exactly where
+# truncation is worst).
+#
+# 6 MATH-500 problems, hand-picked as the most extreme case available:
+# pass@1=0.000 AND 0/32 successful extractions at the frozen
+# max_tokens=1024 -- completely dead at the current budget, so any
+# signal at all at a longer budget is unambiguous. Selection:
+# notes/scratch/day13_maxtokens_select_fast.py (P1-only banding, faster
+# than the P1+P2 combined version which hung/was slow on the
+# OlympiadBench gold-fetch -- not needed here anyway).
+#
+# temperature held at the frozen 0.8 (NOT 1.0 -- isolate max_tokens as
+# the only changed variable, don't conflate with today's earlier
+# temperature ablations). max_tokens=4096 matches Day 3's own precedent
+# value (docs/brief.md's original truncation-diagnosis follow-up), for
+# direct comparability to that finding.
+#
+# New pool per CLAUDE.md invariant #3 (max_tokens is part of the
+# content hash via compute_pool_id).
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary
+benchmark_id: math500-maxtokens-ablation
+n: 32
+max_workers: 8   # only 6 problems; concurrency doesn't matter much here,
+                  # kept modest since these will be the longest completions
+                  # this project has generated on this backend for MATH-500.
+
+benchmark:
+  dataset_id: "HuggingFaceH4/MATH-500"
+  ids_file: "notes/scratch/day13_maxtokens_ablation_ids.json"
+
+decode:
+  temperature: 0.8   # frozen value, deliberately UNCHANGED from P1 --
+                      # max_tokens is the only variable under test here.
+  top_p: 0.95
+  max_tokens: 4096
+  seed: null
+  thinking_mode: false
+  stop_sequences: []

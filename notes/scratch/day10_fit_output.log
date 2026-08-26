@@ -1,0 +1,20 @@
+500 pools found
+fetched 500 problem texts + gold answers
+
+label distribution: {'abstain': 116, 'stop': 348, 'sample': 32, 'select': 4}
+majority-class floor (stop): 0.6960
+
+fitting Detective (probe features -> action)...
+Detective in-sample accuracy: 0.9360
+
+fitting Fortune Teller (query text embedding -> action)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 1508.64it/s]
+Fortune Teller in-sample accuracy: 0.8100
+
+comparator                    in-sample accuracy
+majority class                            0.6960
+Fortune Teller (pre-hoc)                  0.8100
+Detective (probe features)                0.9360
+
+(All numbers are IN-SAMPLE, no held-out split -- this is Day 10's scaffold fit, not Day 14's rigorous grouped 5-fold CV evaluation. Expect these to drop once properly cross-validated.)

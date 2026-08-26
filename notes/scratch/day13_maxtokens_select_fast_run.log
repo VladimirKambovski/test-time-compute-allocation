@@ -1,0 +1,19 @@
+fetching gold...
+got 500 gold answers
+  100 processed
+  200 processed
+  300 processed
+  400 processed
+  500 processed
+
+total P1 problems processed: 525
+
+6 hardest MATH-500 problems (P1-only banding):
+  test/algebra/2176.json  pass@1=0.000  successful_extractions=0/32
+  test/algebra/297.json  pass@1=0.000  successful_extractions=0/32
+  test/algebra/686.json  pass@1=0.000  successful_extractions=0/32
+  test/algebra/892.json  pass@1=0.000  successful_extractions=0/32
+  test/counting_and_probability/10.json  pass@1=0.000  successful_extractions=0/32
+  test/counting_and_probability/1003.json  pass@1=0.000  successful_extractions=0/32
+
+wrote notes/scratch/day13_maxtokens_ablation_ids.json

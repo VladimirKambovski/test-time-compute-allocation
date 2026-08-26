@@ -1,0 +1,48 @@
+# Day 13: temperature ablation, agreed Day 12/HANDOFF, run before the
+# freeze per explicit user instruction (2026-08-25) -- tests whether the
+# G1/SELECT findings are an artifact of the one temperature (0.8) used
+# for every sample generated across the whole project.
+#
+# Same policy/backend/decode as configs/pools/p1-math500-n32.yaml in
+# every field EXCEPT temperature (0.8 -> 1.0). Per CLAUDE.md invariant
+# #3 this is a NEW pool, never a silent extension of P1 -- confirmed
+# distinct via compute_pool_id (temperature is part of the content hash).
+# benchmark_id deliberately differs from P1's "math500" so this stays
+# visually/structurally separated in results/pools/, not because
+# anything downstream keys off it for gold-answer fetching (that's by
+# dataset_id).
+#
+# Scope: 21 problems from difficulty band 1 (the "moderately-hard" band
+# Day 12's E2 landscape found carries ~4pp of the tiny aggregate G1 gap
+# -- see notes/HANDOFF.md and notes/scratch/day12_e2_landscape.py). Band
+# 1 has 151 problems total across P1+P2; 21 of those are MATH-500. All
+# 21 selected (band-1-MATH-500 was smaller than the ~20-25 target, so no
+# further downsampling needed) -- see
+# notes/scratch/day13_temp_ablation_select.py for the exact selection
+# logic (evenly strided across the band's own pass@1 range, deterministic).
+# Restricted to MATH-500 only (not also drawing OlympiadBench-A problems
+# from band 1) to keep this a single-benchmark, single-fetcher pool
+# comparable directly against P1's existing temp=0.8 data for the same
+# problem IDs -- no need to regenerate the baseline arm.
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary
+benchmark_id: math500-temp-ablation
+n: 32
+max_workers: 20   # Matches P1's proven concurrency for this same 1024-token
+                  # decode config exactly (configs/pools/p1-math500-n32.yaml) --
+                  # 3200/3200 zero failures at this concurrency on Day 4. The
+                  # OlympiadBench-specific concurrency=6 lesson doesn't apply
+                  # here (different bottleneck, different max_tokens).
+
+benchmark:
+  dataset_id: "HuggingFaceH4/MATH-500"
+  ids_file: "notes/scratch/day13_temp_ablation_ids.json"
+
+decode:
+  temperature: 1.0   # ONLY field that differs from p1-math500-n32.yaml
+  top_p: 0.95
+  max_tokens: 1024
+  seed: null
+  thinking_mode: false
+  stop_sequences: []

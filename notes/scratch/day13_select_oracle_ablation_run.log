@@ -1,0 +1,4 @@
+fetching problems for HuggingFaceH4/MATH-500 (subset notes/scratch/day13_select_oracle_ids.json)...
+4 problems loaded
+pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='math500-select-ablation' N=32
+completed 128 samples in 10.5min, 0 failed

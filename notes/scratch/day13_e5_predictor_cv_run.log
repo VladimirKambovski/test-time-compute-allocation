@@ -1,0 +1,34 @@
+fetching gold answers...
+got 500 MATH-500, 580 OlympiadBench-A gold answers
+  150 processed
+  300 processed
+  450 processed
+  600 processed
+  750 processed
+
+total usable problems: 787
+class distribution: {'abstain': 280, 'stop': 430, 'sample': 68, 'select': 9}
+fold 0: train=629 test=158 train_class_dist={'stop': 354, 'sample': 56, 'abstain': 212, 'select': 7}
+fold 1: train=629 test=158 train_class_dist={'abstain': 231, 'stop': 333, 'sample': 56, 'select': 9}
+fold 2: train=630 test=157 train_class_dist={'abstain': 230, 'stop': 340, 'sample': 55, 'select': 5}
+fold 3: train=630 test=157 train_class_dist={'abstain': 224, 'stop': 343, 'sample': 55, 'select': 8}
+fold 4: train=630 test=157 train_class_dist={'abstain': 223, 'stop': 350, 'sample': 50, 'select': 7}
+
+=== Detective: real grouped(by-problem)/stratified(by-benchmark) 5-fold CV, out-of-fold ===
+macro-AUROC (out-of-fold): 0.8797  (G6: >=0.70 accept H2, 0.60-0.70 weak, <0.60 reject)
+
+per-class AUROC (one-vs-rest, out-of-fold):
+  abstain: AUROC=0.9598  support=280
+  sample: AUROC=0.8642  support=68
+  select: AUROC=0.6994  support=9
+  stop: AUROC=0.9955  support=430
+
+per-class precision/recall/support (out-of-fold argmax predictions):
+  abstain: precision=0.820 recall=0.961 f1=0.885 support=280
+  sample: precision=0.478 recall=0.162 f1=0.242 support=68
+  select: precision=0.000 recall=0.000 f1=0.000 support=9
+  stop: precision=0.986 recall=0.998 f1=0.992 support=430
+
+overall out-of-fold accuracy: 0.9009
+trivial 'always predict majority class (stop)' accuracy: 0.5464
+Detective's real lift over the trivial floor: 35.45pp

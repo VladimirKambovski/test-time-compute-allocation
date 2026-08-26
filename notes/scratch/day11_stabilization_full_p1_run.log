@@ -1,0 +1,12 @@
+fetched 500 gold answers
+
+mean pass@32 (ceiling) across all 500: 0.7680
+390/500 problems have a well-defined final N=32 majority; 110 excluded (tie or no valid votes at k=32)
+
+Overall mean k* (stabilization point): 2.61 (median 1.0, min 1, max 32)
+Mean k* where final majority is CORRECT   (n=379): 2.22 (median 1.0)
+Mean k* where final majority is INCORRECT (n=11): 16.09 (median 15.0)
+
+362/390 (92.8%) stabilize by k*<=8 (well under the N=32 budget)
+
+(Cross-check against the dev-100 subset finding, notes/2026-08-21.md: mean k*=2.17, median 1.0, 63/75 stabilize at k*=1. This is the FULL 500-problem P1 pool -- not expected to match exactly, but should be directionally consistent if the underlying finding generalizes beyond the original 100-problem sample.)

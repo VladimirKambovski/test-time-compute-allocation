@@ -1,0 +1,12 @@
+500 P1 (MATH-500) pools found
+fetched 500 gold answers
+
+selector                       n    accuracy
+plain_majority               500      0.7580
+prm_weighted_majority        500      0.7640
+prm_argmax                   500      0.6500
+
+PRM-weighted vs plain majority margin (full 500-problem P1): +0.60pp, 95% BCa CI [0.00, 1.40]
+individual-problem flips (plain vs weighted): 3/500
+
+(Cross-check against the dev-100 subset finding, notes/2026-08-23.md: plain=0.730, weighted=0.730, 0 flips there. This is the FULL 500-problem P1 pool, a materially larger and non-identical sample -- not expected to match exactly, but should be directionally consistent if the underlying finding is robust.)

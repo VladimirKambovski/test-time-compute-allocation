@@ -1,0 +1,34 @@
+
+======================================================================
+test/algebra/1031.json (gold: \frac{11}{2})
+======================================================================
+n_steps=1
+charge: policy_tokens=51 discarded_beam_tokens=0 prm_forwards=1
+final text (last 500 chars):
+...To find the smallest real number $x$ in the domain of the function $g(x) = \sqrt{(x-3)^2-(x-8)^2}$, we must ensure that the expression inside the square root is non-negative.
+
+per-round mean_rewards seen:
+  round 0: [1.0]
+
+======================================================================
+test/algebra/1072.json (gold: \frac{243}{625})
+======================================================================
+n_steps=2
+charge: policy_tokens=55 discarded_beam_tokens=0 prm_forwards=2
+final text (last 500 chars):
+...To find the eighth term of the geometric sequence, we first need to identify the first term and the common ratio.To find the eighth term of the geometric sequence, we first identify the first term ($a_1$) and the common ratio ($r$).
+
+per-round mean_rewards seen:
+  round 0: [1.0]
+  round 1: [0.996]
+
+======================================================================
+test/algebra/1184.json (gold: 129)
+======================================================================
+n_steps=1
+charge: policy_tokens=46 discarded_beam_tokens=0 prm_forwards=1
+final text (last 500 chars):
+...To find the value of the first term in the sequence that is greater than 125, let's denote the terms of the sequence as $a_1, a_2, a_3, \dots$.
+
+per-round mean_rewards seen:
+  round 0: [1.0]

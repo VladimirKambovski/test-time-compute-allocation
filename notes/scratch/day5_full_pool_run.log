@@ -1,0 +1,21 @@
+fetching problem text for 100 problems...
+86/3200 already scored -- resuming
+3114 tasks remaining out of 3200
+precomputing extraction/equivalence/segmentation (CPU-only, main thread)...
+  200/3200 done, 0 crashed, elapsed 0.4min, ETA 10.5min
+  400/3200 done, 0 crashed, elapsed 1.1min, ETA 10.1min
+  600/3200 done, 0 crashed, elapsed 1.7min, ETA 8.5min
+  800/3200 done, 0 crashed, elapsed 2.4min, ETA 8.2min
+  1000/3200 done, 0 crashed, elapsed 3.5min, ETA 8.5min
+  1200/3200 done, 0 crashed, elapsed 4.3min, ETA 7.7min
+  1400/3200 done, 0 crashed, elapsed 5.3min, ETA 7.2min
+  1600/3200 done, 0 crashed, elapsed 6.3min, ETA 6.7min
+  1800/3200 done, 0 crashed, elapsed 7.2min, ETA 5.9min
+  2000/3200 done, 0 crashed, elapsed 8.1min, ETA 5.1min
+  2200/3200 done, 0 crashed, elapsed 9.1min, ETA 4.3min
+  2400/3200 done, 0 crashed, elapsed 9.8min, ETA 3.4min
+  2600/3200 done, 0 crashed, elapsed 10.4min, ETA 2.5min
+  2800/3200 done, 0 crashed, elapsed 11.1min, ETA 1.6min
+  3000/3200 done, 0 crashed, elapsed 11.8min, ETA 0.8min
+  3200/3200 done, 0 crashed, elapsed 12.7min, ETA 0.0min
+final: 3200/3200, 0 task-level crashes

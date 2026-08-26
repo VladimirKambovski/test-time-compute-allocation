@@ -1,0 +1,24 @@
+501 pool files found under results/pools (may include P2/OlympiadBench, which shares this same root -- filtered out below, not scored here)
+fetched 500 MATH-500 problem texts
+filtered out 1 non-MATH-500 pool file(s) found under the shared root
+  25/500 problems processed, 467 new scores so far, 2.7min elapsed
+  50/500 problems processed, 1107 new scores so far, 6.3min elapsed
+  75/500 problems processed, 1779 new scores so far, 10.9min elapsed
+  100/500 problems processed, 2515 new scores so far, 14.3min elapsed
+  125/500 problems processed, 3219 new scores so far, 17.1min elapsed
+  150/500 problems processed, 3923 new scores so far, 19.5min elapsed
+  175/500 problems processed, 4627 new scores so far, 22.4min elapsed
+  200/500 problems processed, 5331 new scores so far, 26.5min elapsed
+  225/500 problems processed, 6035 new scores so far, 29.5min elapsed
+  250/500 problems processed, 6707 new scores so far, 31.9min elapsed
+  275/500 problems processed, 7443 new scores so far, 34.9min elapsed
+  300/500 problems processed, 8147 new scores so far, 37.4min elapsed
+  325/500 problems processed, 8819 new scores so far, 41.4min elapsed
+  350/500 problems processed, 9555 new scores so far, 45.3min elapsed
+  375/500 problems processed, 10323 new scores so far, 48.6min elapsed
+  400/500 problems processed, 10995 new scores so far, 52.3min elapsed
+  425/500 problems processed, 11731 new scores so far, 57.5min elapsed
+  450/500 problems processed, 12499 new scores so far, 61.3min elapsed
+  475/500 problems processed, 13267 new scores so far, 64.9min elapsed
+  500/500 problems processed, 14035 new scores so far, 68.9min elapsed
+done: 14035 new scores written, 4131.2s total

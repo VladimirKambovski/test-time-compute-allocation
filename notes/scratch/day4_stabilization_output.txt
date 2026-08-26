@@ -1,0 +1,17 @@
+75/100 problems have a well-defined final N=32 majority; 25 excluded (tie or no valid votes at k=32): ['test/intermediate_algebra/607.json', 'test/intermediate_algebra/662.json', 'test/intermediate_algebra/232.json', 'test/geometry/283.json', 'test/intermediate_algebra/1063.json', 'test/intermediate_algebra/966.json', 'test/intermediate_algebra/964.json', 'test/precalculus/697.json', 'test/counting_and_probability/181.json', 'test/algebra/733.json', 'test/precalculus/1056.json', 'test/geometry/229.json', 'test/precalculus/920.json', 'test/intermediate_algebra/960.json', 'test/intermediate_algebra/2152.json', 'test/counting_and_probability/870.json', 'test/intermediate_algebra/1166.json', 'test/intermediate_algebra/955.json', 'test/intermediate_algebra/2146.json', 'test/precalculus/1133.json', 'test/counting_and_probability/731.json', 'test/intermediate_algebra/1467.json', 'test/counting_and_probability/199.json', 'test/intermediate_algebra/1350.json', 'test/intermediate_algebra/1930.json']
+
+Overall mean k* (stabilization point): 2.17  (median 1.0, min 1, max 25)
+Mean k* where final majority is CORRECT   (n=73): 2.01  (median 1.0)
+Mean k* where final majority is INCORRECT (n=2): 8.00  (median 8.0)
+
+Distribution of k* (all valid problems):
+  k*= 1:  63 problems (62 correct, 1 incorrect)
+  k*= 2:   2 problems (2 correct, 0 incorrect)
+  k*= 3:   2 problems (2 correct, 0 incorrect)
+  k*= 5:   1 problems (1 correct, 0 incorrect)
+  k*= 6:   2 problems (2 correct, 0 incorrect)
+  k*= 7:   1 problems (1 correct, 0 incorrect)
+  k*= 8:   1 problems (1 correct, 0 incorrect)
+  k*=15:   1 problems (0 correct, 1 incorrect)
+  k*=18:   1 problems (1 correct, 0 incorrect)
+  k*=25:   1 problems (1 correct, 0 incorrect)

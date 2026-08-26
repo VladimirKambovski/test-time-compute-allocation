@@ -1,0 +1,27 @@
+fetching gold answers...
+got 500 MATH-500, 580 OlympiadBench-A gold answers
+  150 processed
+  300 processed
+  450 processed
+  600 processed
+  750 processed
+
+total usable problems: 787
+
+=== Detective (plain, frozen default -- matches predictor.py) ===
+macro-AUROC: 0.8797
+  abstain: precision=0.820 recall=0.961 f1=0.885 support=280
+  sample: precision=0.478 recall=0.162 f1=0.242 support=68
+  select: precision=0.000 recall=0.000 f1=0.000 support=9
+  stop: precision=0.986 recall=0.998 f1=0.992 support=430
+overall accuracy: 0.9009
+
+=== Detective (class_weight='balanced') ===
+macro-AUROC: 0.8519
+  abstain: precision=0.876 recall=0.657 f1=0.751 support=280
+  sample: precision=0.295 recall=0.559 f1=0.386 support=68
+  select: precision=0.000 recall=0.000 f1=0.000 support=9
+  stop: precision=0.985 recall=0.905 f1=0.943 support=430
+overall accuracy: 0.7764
+
+overall accuracy: plain=0.9009 vs balanced=0.7764 (balanced trades some overall accuracy for rare-class recall -- expected and often the right trade when the rare classes are the ones that matter most, per HANDOFF's own framing)

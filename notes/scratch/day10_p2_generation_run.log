@@ -1,0 +1,5 @@
+fetching problems for Hothan/OlympiadBench (subset configs/benchmarks/data/olympiad-a-ids.json)...
+300 problems loaded
+pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='olympiad-a' N=32
+completed 9590 samples in 778.9min, 10 failed
+first few failures: [('2844', 2, 'The read operation timed out'), ('2844', 3, 'The read operation timed out'), ('2844', 4, 'The read operation timed out'), ('2844', 5, 'The read operation timed out'), ('2844', 6, 'The read operation timed out')]

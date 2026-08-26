@@ -1,0 +1,15 @@
+  100 processed
+  200 processed
+  300 processed
+  400 processed
+  500 processed
+
+total P1 problems processed: 521
+true SELECT-oracle problems in P1 (temp=0.8): 5
+  test/prealgebra/1865.json: successful extractions = 23/32
+  test/number_theory/1055.json: successful extractions = 2/32
+  test/number_theory/516.json: successful extractions = 12/32
+  test/precalculus/881.json: successful extractions = 2/32
+  test/prealgebra/1865.json: successful extractions = 25/32
+
+wrote notes/scratch/day13_select_oracle_ids.json

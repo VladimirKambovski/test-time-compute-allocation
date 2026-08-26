@@ -1,0 +1,4 @@
+fetching problems for HuggingFaceH4/MATH-500 (subset notes/scratch/day13_temp_ablation_ids.json)...
+21 problems loaded
+pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='math500-temp-ablation' N=32
+completed 672 samples in 56.3min, 0 failed

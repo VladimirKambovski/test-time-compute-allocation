@@ -1,0 +1,27 @@
+starting fresh
+960 tasks remaining out of 960
+10 (problem, sample) pairs already done
+950 tasks remaining out of 960
+  50/950 done, 164 failed so far, elapsed 60.1min, ETA 884.0min
+  100/950 done, 164 failed so far, elapsed 65.2min, ETA 447.2min
+  150/950 done, 164 failed so far, elapsed 71.4min, ETA 302.7min
+  200/950 done, 164 failed so far, elapsed 74.4min, ETA 218.1min
+  250/950 done, 164 failed so far, elapsed 83.4min, ETA 178.8min
+  300/950 done, 164 failed so far, elapsed 98.3min, ETA 159.3min
+  350/950 done, 164 failed so far, elapsed 102.1min, ETA 127.2min
+  400/950 done, 164 failed so far, elapsed 105.7min, ETA 102.0min
+  450/950 done, 164 failed so far, elapsed 116.3min, ETA 86.9min
+  500/950 done, 164 failed so far, elapsed 127.7min, ETA 73.1min
+  550/950 done, 164 failed so far, elapsed 137.6min, ETA 59.1min
+  600/950 done, 164 failed so far, elapsed 149.9min, ETA 46.5min
+  650/950 done, 164 failed so far, elapsed 161.0min, ETA 33.7min
+  700/950 done, 164 failed so far, elapsed 171.8min, ETA 21.1min
+  750/950 done, 164 failed so far, elapsed 173.7min, ETA 8.3min
+764 (problem, sample) pairs already done
+196 tasks remaining out of 960
+  50/196 done, 54 failed so far, elapsed 34.8min, ETA 64.0min
+  100/196 done, 54 failed so far, elapsed 49.9min, ETA 20.9min
+First pass: 142 succeeded, 54 failed in 61.5 min
+Retrying 54 failures at concurrency=5, timeout=450s
+Retry: 2/54 recovered, 52 still failed
+TOTAL in notes/scratch/day4_olympiad_pool.jsonl: 908/960

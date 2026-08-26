@@ -1,0 +1,23 @@
+[
+  "test/geometry/615.json",
+  "test/intermediate_algebra/101.json",
+  "test/intermediate_algebra/102.json",
+  "test/intermediate_algebra/1102.json",
+  "test/intermediate_algebra/1217.json",
+  "test/intermediate_algebra/1300.json",
+  "test/intermediate_algebra/1388.json",
+  "test/intermediate_algebra/1407.json",
+  "test/intermediate_algebra/1508.json",
+  "test/number_theory/1002.json",
+  "test/number_theory/1055.json",
+  "test/precalculus/659.json",
+  "test/precalculus/826.json",
+  "test/precalculus/881.json",
+  "test/algebra/1837.json",
+  "test/algebra/2700.json",
+  "test/algebra/509.json",
+  "test/algebra/733.json",
+  "test/intermediate_algebra/199.json",
+  "test/number_theory/13.json",
+  "test/prealgebra/1865.json"
+]

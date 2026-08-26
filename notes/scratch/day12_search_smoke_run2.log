@@ -1,0 +1,56 @@
+
+======================================================================
+test/algebra/1031.json (gold: \frac{11}{2})
+======================================================================
+n_steps=8
+charge: policy_tokens=470 discarded_beam_tokens=0 prm_forwards=8
+final text (last 500 chars):
+...e function $g(x) = \sqrt{(x-3)^2-(x-8)^2}$, we must ensure that the expression inside the square root is non-negative:
+$$ (x-3)^2 - (x-8)^2 \ge 0 $$To find the smallest real number $x$ in the domain of the function $g(x) = \sqrt{(x-3)^2-(x-8)^2}$, we follow these steps:To find the smallest real number $x$ in the domain of the function $g(x) = \sqrt{(x-3)^2-(x-8)^2}$, we must determine the values of $x$ for which the expression inside the square root is non-negative:
+$$ (x-3)^2 - (x-8)^2 \ge 0 $$
+
+per-round mean_rewards seen:
+  round 0: [1.0]
+  round 1: [0.996]
+  round 2: [0.977]
+  round 3: [0.984]
+  round 4: [0.969]
+  round 5: [0.984]
+  round 6: [0.941]
+  round 7: [0.973]
+
+======================================================================
+test/algebra/1072.json (gold: \frac{243}{625})
+======================================================================
+n_steps=8
+charge: policy_tokens=289 discarded_beam_tokens=0 prm_forwards=8
+final text (last 500 chars):
+...ldots$, we proceed as follows:To find the eighth term of the geometric sequence, we first identify the first term ($a_1$) and the common ratio ($r$).To find the eighth term of the geometric sequence $\frac{125}{9}, \frac{25}{3}, 5, 3, \ldots$, we proceed as follows:To find the eighth term of the geometric sequence $\frac{125}{9}, \frac{25}{3}, 5, 3, \ldots$, we follow these steps:To find the eighth term of the geometric sequence $\frac{125}{9}, \frac{25}{3}, 5, 3, \ldots$, we follow these steps:
+
+per-round mean_rewards seen:
+  round 0: [1.0]
+  round 1: [0.996]
+  round 2: [0.938]
+  round 3: [0.941]
+  round 4: [0.988]
+  round 5: [0.938]
+  round 6: [0.914]
+  round 7: [0.879]
+
+======================================================================
+test/algebra/1184.json (gold: 129)
+======================================================================
+n_steps=8
+charge: policy_tokens=327 discarded_beam_tokens=0 prm_forwards=8
+final text (last 500 chars):
+...n 125, let's rigorously define the sequence and calculate its terms step by step.To find the value of the first term in the sequence greater than 125, let's rigorously define the sequence and calculate its terms step by step.To find the value of the first term in the sequence greater than 125, let's rigorously define the sequence and calculate its terms step by step.To find the first term in the sequence greater than 125, let's rigorously define the sequence and calculate its terms step by step.
+
+per-round mean_rewards seen:
+  round 0: [1.0]
+  round 1: [0.945]
+  round 2: [0.977]
+  round 3: [0.949]
+  round 4: [0.863]
+  round 5: [0.762]
+  round 6: [0.664]
+  round 7: [0.586]

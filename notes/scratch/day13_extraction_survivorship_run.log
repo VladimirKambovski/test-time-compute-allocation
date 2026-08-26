@@ -1,0 +1,14 @@
+  100 processed
+  200 processed
+  300 processed
+  400 processed
+  500 processed
+
+total P1 problems processed (N=32 only): 521
+
+band (0=hardest, 4=easiest): mean successfully-extracted samples /32, frac problems with <=3 survivors
+  band 0: n=100, mean_n_ok=0.21, frac_<=3_survivors=99.00%
+  band 1: n=100, mean_n_ok=7.06, frac_<=3_survivors=42.00%
+  band 2: n=100, mean_n_ok=25.96, frac_<=3_survivors=0.00%
+  band 3: n=100, mean_n_ok=31.81, frac_<=3_survivors=0.00%
+  band 4: n=100, mean_n_ok=32.00, frac_<=3_survivors=0.00%

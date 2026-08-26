@@ -1,0 +1,36 @@
+3200 (problem, sample) pairs already done -- resuming
+3200 tasks remaining out of 6400
+  100/3200 done, 0 failed so far, elapsed 4.5min, ETA 140.0min
+  200/3200 done, 0 failed so far, elapsed 9.6min, ETA 144.4min
+  300/3200 done, 0 failed so far, elapsed 14.5min, ETA 139.7min
+  400/3200 done, 0 failed so far, elapsed 18.1min, ETA 126.9min
+  500/3200 done, 0 failed so far, elapsed 22.0min, ETA 118.9min
+  600/3200 done, 0 failed so far, elapsed 27.7min, ETA 120.1min
+  700/3200 done, 0 failed so far, elapsed 32.2min, ETA 115.0min
+  800/3200 done, 0 failed so far, elapsed 38.7min, ETA 116.0min
+  900/3200 done, 0 failed so far, elapsed 43.9min, ETA 112.2min
+  1000/3200 done, 0 failed so far, elapsed 49.7min, ETA 109.4min
+  1100/3200 done, 0 failed so far, elapsed 56.1min, ETA 107.2min
+  1200/3200 done, 0 failed so far, elapsed 61.4min, ETA 102.3min
+  1300/3200 done, 0 failed so far, elapsed 66.5min, ETA 97.1min
+  1400/3200 done, 0 failed so far, elapsed 72.6min, ETA 93.4min
+  1500/3200 done, 0 failed so far, elapsed 79.2min, ETA 89.7min
+  1600/3200 done, 0 failed so far, elapsed 83.0min, ETA 83.0min
+  1700/3200 done, 0 failed so far, elapsed 88.7min, ETA 78.3min
+  1800/3200 done, 0 failed so far, elapsed 94.5min, ETA 73.5min
+  1900/3200 done, 0 failed so far, elapsed 100.9min, ETA 69.1min
+  2000/3200 done, 0 failed so far, elapsed 104.8min, ETA 62.9min
+  2100/3200 done, 0 failed so far, elapsed 108.2min, ETA 56.7min
+  2200/3200 done, 0 failed so far, elapsed 113.7min, ETA 51.7min
+  2300/3200 done, 0 failed so far, elapsed 118.9min, ETA 46.5min
+  2400/3200 done, 0 failed so far, elapsed 124.1min, ETA 41.4min
+  2500/3200 done, 0 failed so far, elapsed 129.0min, ETA 36.1min
+  2600/3200 done, 0 failed so far, elapsed 132.3min, ETA 30.5min
+  2700/3200 done, 0 failed so far, elapsed 137.3min, ETA 25.4min
+  2800/3200 done, 0 failed so far, elapsed 143.1min, ETA 20.4min
+  2900/3200 done, 0 failed so far, elapsed 149.5min, ETA 15.5min
+  3000/3200 done, 0 failed so far, elapsed 154.0min, ETA 10.3min
+  3100/3200 done, 0 failed so far, elapsed 160.6min, ETA 5.2min
+  3200/3200 done, 0 failed so far, elapsed 166.9min, ETA 0.0min
+First pass: 3200 succeeded, 0 failed in 166.9 min
+TOTAL in notes/scratch/day4_pool.jsonl: 6400/6400

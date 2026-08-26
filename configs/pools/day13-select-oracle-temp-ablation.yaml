@@ -1,0 +1,37 @@
+# Day 13, second ablation: the mentor's actual suggestion (relayed
+# 2026-08-26), not this session's own difficulty-band proxy. Mentor's
+# framing on hearing SELECT fails almost always: raise temperature, use
+# a smaller pool, and test on specific problems where we'd expect SELECT
+# to actually win. Precisely operationalized here: the 4 real, canonical
+# P1 problems whose true 4-class oracle label is 'select' at the frozen
+# temp=0.8 (found via notes/scratch/day13_find_select_problems.py,
+# deduped against a stray on-disk duplicate directory, verified against
+# compute_pool_id -- see notes/2026-08-26.md).
+#
+# n=4 is far below the honesty-rule floor for any CI (docs/brief.md
+# §19) -- this is a qualitative before/after read, not a statistical
+# test, matching the mentor's own "try it and see" framing. One of the
+# 4 (prealgebra/1865, 25/32 successful extractions at temp=0.8) is
+# clean enough to give an uncontaminated answer; the other 3 carry the
+# same truncation-survivorship caveat found earlier today.
+#
+# Same policy/backend/decode as P1 except temperature -- a NEW pool per
+# CLAUDE.md invariant #3, confirmed distinct via compute_pool_id.
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary
+benchmark_id: math500-select-ablation
+n: 32
+max_workers: 8   # only 4 problems, concurrency doesn't matter here
+
+benchmark:
+  dataset_id: "HuggingFaceH4/MATH-500"
+  ids_file: "notes/scratch/day13_select_oracle_ids.json"
+
+decode:
+  temperature: 1.0
+  top_p: 0.95
+  max_tokens: 1024
+  seed: null
+  thinking_mode: false
+  stop_sequences: []

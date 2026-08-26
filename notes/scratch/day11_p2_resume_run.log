@@ -1,0 +1,4 @@
+fetching problems for Hothan/OlympiadBench (subset configs/benchmarks/data/olympiad-a-ids.json)...
+300 problems loaded
+pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='olympiad-a' N=32
+completed 10 samples in 9.3min, 0 failed

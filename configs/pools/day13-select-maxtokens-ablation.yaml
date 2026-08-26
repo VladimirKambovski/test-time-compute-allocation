@@ -1,0 +1,34 @@
+# Day 13, fourth ablation: does raising max_tokens preserve/strengthen a
+# real SELECT signal, or does it just resolve truncation-confounded
+# SELECT cases to STOP/SAMPLE like the band-0 max_tokens ablation did?
+# Direct test of the user's question after seeing that ablation's
+# result (6/6 flipped to STOP/SAMPLE, none to SELECT).
+#
+# The 2 known, canonical P1 problems whose true oracle label is SELECT
+# at temp=0.8 AND that are truncation-confounded (2/32 successful
+# extractions each) -- test/number_theory/1055.json and
+# test/precalculus/881.json. Found via
+# notes/scratch/day13_find_select_problems.py, confirmed via
+# compute_pool_id.
+#
+# temperature held at the frozen 0.8 (isolate max_tokens as the only
+# changed variable, same discipline as day13-maxtokens-ablation-4096.yaml).
+# max_tokens=4096, matching that same ablation for direct comparability.
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary
+benchmark_id: math500-select-maxtokens-ablation
+n: 32
+max_workers: 8
+
+benchmark:
+  dataset_id: "HuggingFaceH4/MATH-500"
+  ids_file: "notes/scratch/day13_select_maxtokens_ids.json"
+
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 4096
+  seed: null
+  thinking_mode: false
+  stop_sequences: []
