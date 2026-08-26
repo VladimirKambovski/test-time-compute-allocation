@@ -175,18 +175,30 @@ never re-run after a fix, since no fix was attempted).
   1024 tokens), and on band 1, 42% of problems have ≤3/32 successful
   extractions. Bands 2-4 (60% of all problems, where the aggregate
   G1/SELECT verdicts are actually decided) are completely unaffected.
-  **Demonstrated, not just inferred:** regenerated the 6 most extreme
-  band-0 problems (pass@1=0.000, 0/32 extractions at 1024 tokens) at
-  max_tokens=4096, temp held at the frozen 0.8. **6/6 flipped from
-  ABSTAIN to a real action** (5 all the way to STOP, the cheapest
-  action); mean successful extractions went from 0% to ~75%. "0.000
-  ceiling, nothing works regardless of strategy" should read "...at
-  max_tokens=1024" — these are not unsolvable problems, the model was
-  being cut off mid-derivation every time. **The aggregate G1-failed /
-  SELECT-0.8% verdicts are NOT called into question by this** (bands
-  2-4 are unaffected) — but the band-0/1 *characterization* needs this
-  correction, and a systematic max_tokens sweep across all of band 0/1
-  is now a real open item before the report's headline numbers are
+  **Demonstrated, not just inferred, then extended overnight to a
+  systematic n=30 sample (2026-08-26):** 6 hand-tested + 24 more
+  band-0 problems at max_tokens=4096, temp held at the frozen 0.8.
+  **25/30 (83.3%) flipped away from ABSTAIN** (21 to STOP, 3 to SAMPLE,
+  1 to SELECT); mean successful extractions went from ~1% to ~46%.
+  "0.000 ceiling, nothing works regardless of strategy" should read
+  "...at max_tokens=1024" for MOST of band 0 — these are not unsolvable
+  problems, the model was being cut off mid-derivation. **But the
+  larger sample also found a real exception: 5/30 (16.7%) stayed fully
+  ABSTAIN even at 4096 tokens** — a genuine subset that doesn't resolve
+  with more budget (either truly unsolvable by this policy, or would
+  need even more than 4x tokens, untested). **The honest, complete
+  characterization is a MIX: ~5/6 of band 0's hardest tail is a
+  token-budget artifact, ~1/6 has a real ceiling beyond truncation** —
+  both halves matter for the report, not just the more flattering one.
+  **The aggregate G1-failed / SELECT-0.8% verdicts are NOT called into
+  question by this** (bands 2-4 are unaffected) — but the band-0/1
+  *characterization* needed this correction. Full n=30 writeup, including
+  a real 20-sample timeout incident during the overnight run (traced,
+  doesn't affect any conclusion — see notes/2026-08-26.md) and the one
+  SELECT exception, in notes/2026-08-26.md. A systematic sweep across
+  band 1 (not yet done, only band 0 covered) and the remaining ~121 of
+  band 0's ~151 problems is still a real open item before the report's
+  headline numbers are
   final (see Pending decisions). Full writeup: `notes/2026-08-26.md`.
 - **Predictor accuracy is misleading in aggregate** (original 2026-08-24
   finding, in-sample 100-problem preliminary). **2026-08-26 UPDATE: the

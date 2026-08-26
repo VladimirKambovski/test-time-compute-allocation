@@ -1,0 +1,112 @@
+fetching problems for HuggingFaceH4/MATH-500 (subset notes/scratch/day13_overnight_maxtokens_ids.json)...
+24 problems loaded
+pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='math500-overnight-maxtokens' N=32
+completed 748 samples in 222.6min, 20 failed
+first few failures: [('test/counting_and_probability/181.json', 10, 'The read operation timed out'), ('test/counting_and_probability/181.json', 11, 'The read operation timed out'), ('test/counting_and_probability/181.json', 12, 'The read operation timed out'), ('test/counting_and_probability/181.json', 13, 'The read operation timed out'), ('test/counting_and_probability/181.json', 14, 'The read operation timed out')]
+=== GENERATION DONE, running analysis ===
+24 problems in the overnight max_tokens extension
+=== test/counting_and_probability/181.json ===  gold: 19
+  1024tok: n_ok=1/32, action=abstain
+  4096tok: n_ok=7/32, action=stop
+
+=== test/counting_and_probability/188.json ===  gold: \frac{1}{2}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=31/32, action=stop
+
+=== test/counting_and_probability/199.json ===  gold: 13
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=14/32, action=stop
+
+=== test/counting_and_probability/238.json ===  gold: 10080
+  1024tok: n_ok=2/32, action=abstain
+  4096tok: n_ok=18/32, action=stop
+
+=== test/counting_and_probability/282.json ===  gold: \frac{1}{2}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=14/32, action=stop
+
+=== test/counting_and_probability/430.json ===  gold: \frac{1}{3}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=26/32, action=stop
+
+=== test/counting_and_probability/731.json ===  gold: \frac{1}{2}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=0/32, action=abstain
+
+=== test/counting_and_probability/870.json ===  gold: \frac{1}{3}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=27/32, action=stop
+
+=== test/counting_and_probability/894.json ===  gold: 540
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=31/32, action=stop
+
+=== test/geometry/1140.json ===  gold: \frac{3840}{289}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=32/32, action=stop
+
+=== test/geometry/172.json ===  gold: 8
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=14/32, action=stop
+
+=== test/geometry/183.json ===  gold: 145^\circ
+  1024tok: n_ok=3/32, action=abstain
+  4096tok: n_ok=11/32, action=sample
+
+=== test/geometry/229.json ===  gold: 16
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=3/32, action=stop
+
+=== test/geometry/283.json ===  gold: 8
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=13/32, action=stop
+
+=== test/geometry/434.json ===  gold: 28
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=8/32, action=stop
+
+=== test/geometry/465.json ===  gold: 120
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=16/32, action=select
+
+=== test/geometry/547.json ===  gold: 54
+  1024tok: n_ok=1/32, action=abstain
+  4096tok: n_ok=10/32, action=stop
+
+=== test/geometry/561.json ===  gold: \frac{7}{2}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=8/32, action=sample
+
+=== test/geometry/65.json ===  gold: 30^\circ
+  1024tok: n_ok=3/32, action=abstain
+  4096tok: n_ok=21/32, action=stop
+
+=== test/geometry/702.json ===  gold: 160
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=19/32, action=stop
+
+=== test/geometry/711.json ===  gold: 1+2\sqrt{3}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=0/32, action=abstain
+
+=== test/geometry/817.json ===  gold: \frac{14}{3}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=0/32, action=abstain
+
+=== test/geometry/826.json ===  gold: 1\frac{4}{5}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=0/32, action=abstain
+
+=== test/geometry/880.json ===  gold: 2\sqrt{113}
+  1024tok: n_ok=0/32, action=abstain
+  4096tok: n_ok=0/32, action=abstain
+
+=== SUMMARY ===
+n=24 problems (all pass@1=0.000, mostly 0-3/32 extractions at 1024 tokens)
+flipped away from ABSTAIN at 4096 tokens: 19/24 (79.2%)
+action distribution at 4096 tokens: {'stop': 16, 'sample': 2, 'select': 1, 'abstain': 5}
+mean successful extractions: before=0.42/32, after=13.46/32
+
+combined with tonight's hand-tested 6 (6/6 flipped, 5/6 to STOP, 1/6 to SAMPLE):
+total systematic sample size: 30 of band 0's ~100-151 problems
+=== OVERNIGHT JOB COMPLETE ===
