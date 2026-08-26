@@ -208,9 +208,19 @@ never re-run after a fix, since no fix was attempted).
   either way (confirms structural, not a reweighting problem). **Decision:
   report the plain model as the headline result, document balanced as an
   ablation.** This is real Day-14/E5/G6 progress, pulled forward under
-  the 3-4-day time constraint. Still outstanding: H3 (needs the Fortune
-  Teller pre-hoc comparator), the other 3 comparators from the brief's
-  5-comparator table, probe-size ablation (SHOULD). Full writeup:
+  the 3-4-day time constraint.
+  **UPDATE same night: the rest of Day 14 is now done too.** Fortune
+  Teller (pre-hoc query-embedding comparator): macro-AUROC 0.7263.
+  **H3: Detective beats it by 0.1534, 3x the required 0.05 margin —
+  ACCEPT.** Majority-class comparator sanity-checks at exactly 0.5
+  AUROC as expected. Fixed agreement-threshold heuristic ties
+  Detective's raw accuracy (both 90.09%) — Detective's real advantage
+  is in macro-AUROC/SAMPLE discrimination specifically, not raw
+  accuracy; state that precisely in the report, don't just cite the
+  accuracy tie or the AUROC win in isolation. Still outstanding:
+  difficulty-tier/full-oracle ceilings (cheap), feature ablation (A5),
+  probe-size ablation (SHOULD). Script:
+  `notes/scratch/day14_e5_full_comparators.py`. Full writeup:
   `notes/2026-08-26.md`.
 - **Temperature was never varied.** Fixed at 0.8 (top_p 0.95) for
   literally every sample generated this entire project. A small,

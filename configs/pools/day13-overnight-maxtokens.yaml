@@ -1,0 +1,29 @@
+# Overnight extension of the band-0 max_tokens finding (2026-08-26).
+# 24 more of the hardest MATH-500 problems (pass@1=0.000 at 1024 tokens,
+# mostly 0-3/32 successful extractions), excluding the 6 already tested
+# tonight -- combined n=30 by morning. Same isolation discipline as the
+# earlier max_tokens ablations: temperature held at the frozen 0.8,
+# max_tokens=4096 is the only changed variable.
+#
+# Sized conservatively: 24 problems x ~7.25min/problem (observed rate
+# from the 6-problem run) = ~2.9h naive estimate, ~5.8h even at this
+# project's own documented 2x worst-case overrun -- fits inside a
+# 6-7h overnight window with real margin.
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary
+benchmark_id: math500-overnight-maxtokens
+n: 32
+max_workers: 8   # same proven concurrency as tonight's max_tokens ablations
+
+benchmark:
+  dataset_id: "HuggingFaceH4/MATH-500"
+  ids_file: "notes/scratch/day13_overnight_maxtokens_ids.json"
+
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 4096
+  seed: null
+  thinking_mode: false
+  stop_sequences: []

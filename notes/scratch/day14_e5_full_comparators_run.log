@@ -1,0 +1,34 @@
+fetching MATH-500 + OlympiadBench-A (text + gold)...
+got 500 MATH-500, 580 OlympiadBench-A rows
+  150 processed
+  300 processed
+  450 processed
+  600 processed
+  750 processed
+
+total usable problems: 787
+
+fitting Detective (post-hoc, probe features)...
+Detective macro-AUROC: 0.8797  (H2: >=0.70 accept)
+
+embedding all query texts (sentence-transformers, one-time model load)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 1665.09it/s]
+embeddings shape: (787, 384)
+
+fitting Fortune Teller (pre-hoc, query-text embedding, H3's control)...
+Fortune Teller macro-AUROC: 0.7263
+
+=== H3: post-hoc (Detective) vs pre-hoc (Fortune Teller) ===
+Detective - Fortune Teller = 0.1534  (H3: >=0.05 needed to accept)
+H3 verdict: ACCEPT (evidence beats pre-hoc guess by >= 0.05)
+
+Majority-class comparator macro-AUROC: 0.5  (expected ~0.5, no discrimination by construction)
+
+Fixed agreement-threshold comparator (best threshold=0.25): accuracy=0.9009 (2-bucket STOP-vs-ABSTAIN heuristic, no SAMPLE/SELECT capacity by construction -- a real ceiling-on-simplicity comparator, not directly AUROC-comparable to the 4-class models)
+
+=== SUMMARY ===
+H2 (Detective macro-AUROC >= 0.70): 0.8797 -> ACCEPT
+H3 (Detective beats Fortune Teller by >= 0.05): 0.1534 -> ACCEPT
+Majority-class floor: 0.5 (Detective's real lift: 0.3797)
+Fixed-threshold heuristic accuracy: 0.9009 (vs Detective's overall accuracy from the earlier E5 run: 0.9009)
