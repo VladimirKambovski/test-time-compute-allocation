@@ -13,13 +13,18 @@ rewrite — see the 2026-08-26 marked blocks below for what changed).
 
 ## Where we actually are right now
 
-Roadmap position: **Day 18 (held-out generation, P4+P5) launched**,
-running in the background (~5.6h+ estimated) as of this update. G8
-fired (Day 17 done), pre-flight-verified both id-list hashes match the
-Day-2 frozen values and P4/P5 are disjoint from the dev sets before
-generating anything. New AIME25 fetcher (no working `/rows` preview for
-that dataset, fetches raw pinned-revision JSONL instead), smoke-tested
-live. **Per invariant #8: one pass, no re-tuning after seeing results.**
+Roadmap position: **Day 18 COMPLETE — the held-out result is in and
+recorded, final, no re-tuning per invariant #8.** Generation (P4+P5,
+0 failures), PRM scoring (4160 scores, 0 errors), and the frozen-model
+evaluation all done. **Headline: G1's gap (0.00pp) and SELECT's zero
+value both independently replicate on held-out data — good news for
+validity even though the finding is negative. New, more consequential
+result: the learned controller actively underperforms the best fixed
+policy by 9.3pp on P4 (not just "doesn't beat," genuinely worse).**
+AIME25 (P5) has a 6.67% oracle ceiling — no headroom for any strategy,
+a real capability limit of the 4B model, not a controller failure.
+Full numbers in `results/heldout_results.json` and "Real findings"
+below. Day 19 (report) and Day 20 (repro check) are what's left.
 **Day 17 done too** (`ui/demo.py`, a deliberately
 scoped-down benchmark-mode CLI walkthrough, NOT the full panel UI --
 protecting reproducibility/held-out/report time per explicit

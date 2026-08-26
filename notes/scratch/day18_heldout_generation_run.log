@@ -1,1 +1,11 @@
 === P4 (OlympiadBench-B, 100 problems) starting ===
+fetching problems for Hothan/OlympiadBench (subset configs/benchmarks/data/heldout-olympiad-b-ids.json)...
+100 problems loaded
+pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='olympiad-b-heldout' N=32
+completed 3200 samples in 248.3min, 0 failed
+=== P4 DONE, starting P5 (AIME25, 30 problems) ===
+fetching problems for opencompass/AIME2025 (subset configs/benchmarks/data/heldout-aime25-ids.json)...
+30 problems loaded
+pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='aime25-heldout' N=32
+completed 960 samples in 80.9min, 0 failed
+=== P5 DONE, HELD-OUT GENERATION COMPLETE ===

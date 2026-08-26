@@ -1,0 +1,57 @@
+loaded FROZEN Detective model (results/models/detective_frozen.joblib, fit on dev set only)
+
+======================================================================
+P4: OlympiadBench-B (held-out, IN-distribution) (n=86/100)
+======================================================================
+STOP accuracy:          0.3023
+SAMPLE accuracy:        0.4186
+SELECT ceiling:         0.4186
+Oracle ceiling:         0.4186
+Best fixed policy:      0.4186
+G1-style gap:           0.00pp
+Detective (frozen model) achieved accuracy: 0.3256
+Detective vs best fixed: -9.30pp
+Detective action distribution: {np.str_('abstain'): 54, np.str_('stop'): 27, np.str_('sample'): 5}
+TRUE oracle action distribution: {'abstain': 50, 'sample': 10, 'stop': 26}
+
+======================================================================
+P5: AIME25 (held-out, OUT-OF-distribution) (n=30/30)
+======================================================================
+STOP accuracy:          0.0667
+SAMPLE accuracy:        0.0667
+SELECT ceiling:         0.0667
+Oracle ceiling:         0.0667
+Best fixed policy:      0.0667
+G1-style gap:           0.00pp
+Detective (frozen model) achieved accuracy: 0.0667
+Detective vs best fixed: +0.00pp
+Detective action distribution: {np.str_('stop'): 2, np.str_('abstain'): 28}
+TRUE oracle action distribution: {'stop': 2, 'abstain': 28}
+
+======================================================================
+FINAL HELD-OUT RESULT -- recorded as-is, no re-tuning
+======================================================================
+{
+  "P4_olympiad_b": {
+    "n": 86,
+    "stop": 0.3023255813953488,
+    "sample": 0.4186046511627907,
+    "select_ceiling": 0.4186046511627907,
+    "oracle": 0.4186046511627907,
+    "best_fixed": 0.4186046511627907,
+    "gap_pp": 0.0,
+    "detective": 0.32558139534883723
+  },
+  "P5_aime25": {
+    "n": 30,
+    "stop": 0.06666666666666667,
+    "sample": 0.06666666666666667,
+    "select_ceiling": 0.06666666666666667,
+    "oracle": 0.06666666666666667,
+    "best_fixed": 0.06666666666666667,
+    "gap_pp": 0.0,
+    "detective": 0.06666666666666667
+  }
+}
+
+wrote results/heldout_results.json
