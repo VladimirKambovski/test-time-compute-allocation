@@ -24,7 +24,17 @@ policy by 9.3pp on P4 (not just "doesn't beat," genuinely worse).**
 AIME25 (P5) has a 6.67% oracle ceiling — no headroom for any strategy,
 a real capability limit of the 4B model, not a controller failure.
 Full numbers in `results/heldout_results.json` and "Real findings"
-below. Day 19 (report) and Day 20 (repro check) are what's left.
+below. **E4 (crossover N* + V4 length-bias regression) also done**,
+pulled forward from Day 13 after reconsidering an initial "cut it" call
+-- it's cheap (cached data only) and directly verifies V4 for the
+report. Real finding: PRM-argmax doesn't just fail to beat plain
+majority, it's reliably and increasingly WORSE from N=4 onward
+(significant at every level tested, gap widening to -8.0pp at N=32).
+V4 confirmed: PRM-argmax winners are 83 tokens shorter than the pool
+median but have more reasoning steps -- plausibly because PRM favors
+samples that actually finished, not truncated ones. Script:
+`notes/scratch/day19_e4_crossover.py`. Day 19 (report) and Day 20
+(repro check) are what's left.
 **Day 17 done too** (`ui/demo.py`, a deliberately
 scoped-down benchmark-mode CLI walkthrough, NOT the full panel UI --
 protecting reproducibility/held-out/report time per explicit

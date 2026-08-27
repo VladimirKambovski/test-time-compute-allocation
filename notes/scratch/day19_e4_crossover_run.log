@@ -1,0 +1,26 @@
+fetching gold answers...
+got 500 MATH-500, 254/300 OlympiadBench-A
+  150 processed
+  300 processed
+  450 processed
+  600 processed
+  750 processed
+
+total usable problems (with PRM scores): 754 (of 754 scanned, 0 had no PRM scores)
+
+=== Crossover analysis: PRM-argmax vs plain majority, by budget level N ===
+   N  majority_acc  argmax_acc      diff     CI_lo     CI_hi  excl_zero
+   2        0.4987      0.5027    0.0040   -0.0080    0.0146      False
+   4        0.5570      0.5265   -0.0305   -0.0464   -0.0199      False
+   8        0.5796      0.5239   -0.0557   -0.0756   -0.0411      False
+  16        0.6127      0.5438   -0.0690   -0.0902   -0.0531      False
+  32        0.6286      0.5491   -0.0796   -0.1034   -0.0610      False
+
+No crossover observed up to N=32 -- PRM-argmax never reliably beats plain majority at any tested budget level. Per docs/brief.md line 824, this is the honest report, not a failure to find a crossover.
+
+=== V4: are PRM-argmax winners (at N=32) length/step-biased vs. the pool median? ===
+n winners identified: 383
+length delta (winner - pool median): mean=-83.02 tokens, BCa 95% CI [-94.68, -72.53], excludes zero: True
+step delta (winner - pool median): mean=0.89 steps, BCa 95% CI [0.65, 1.15], excludes zero: True
+
+V4 verdict: CONFIRMED -- PRM-argmax winners are length-biased
