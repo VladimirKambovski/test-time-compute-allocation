@@ -1,12 +1,5 @@
-=== MATH-500 (13 problems) starting ===
-fetching problems for HuggingFaceH4/MATH-500 (subset notes/scratch/day19_band_maxtokens_math500_ids.json)...
-13 problems loaded
-pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='math500-band-maxtokens' N=32
-completed 416 samples in 24.9min, 0 failed
-=== MATH-500 DONE, starting OlympiadBench-A (11 problems) ===
 fetching problems for Hothan/OlympiadBench (subset notes/scratch/day19_band_maxtokens_olympiad_ids.json)...
 11 problems loaded
 pool: policy_ref='qwen3.5-4b' backend_ref='policy_primary' benchmark_id='olympiad-a-band-maxtokens' N=32
-completed 320 samples in 70.4min, 32 failed
+completed 0 samples in 10.5min, 32 failed
 first few failures: [('2082', 0, 'HTTP Error 500: Internal Server Error'), ('2082', 1, 'HTTP Error 500: Internal Server Error'), ('2082', 2, 'HTTP Error 500: Internal Server Error'), ('2082', 3, 'HTTP Error 500: Internal Server Error'), ('2082', 4, 'HTTP Error 500: Internal Server Error')]
-=== BAND MAXTOKENS GENERATION COMPLETE ===

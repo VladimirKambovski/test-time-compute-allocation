@@ -33,8 +33,21 @@ majority, it's reliably and increasingly WORSE from N=4 onward
 V4 confirmed: PRM-argmax winners are 83 tokens shorter than the pool
 median but have more reasoning steps -- plausibly because PRM favors
 samples that actually finished, not truncated ones. Script:
-`notes/scratch/day19_e4_crossover.py`. Day 19 (report) and Day 20
-(repro check) are what's left.
+`notes/scratch/day19_e4_crossover.py`.
+
+**Mentor-directed follow-up also done: does a bigger token budget
+change the AGGREGATE G1 gap across all difficulty bands (not just band
+0)? No — gap is EXACTLY 1.89pp at both 1024 and 4096 tokens** (n=53,
+stratified across bands 1-4 + reused band-0 sample), paired
+change-in-gap 95% CI [-7.55pp, 3.77pp] clearly includes zero. Raw
+accuracy jumps massively (35.9%->90.6% oracle) but the relative
+headroom doesn't move at all — directly rules out "maybe it's just the
+frozen budget" as an explanation for G1's failure. Exactly the
+mentor's own "more trustworthy negative result" framing, now confirmed
+not assumed. Scripts: `notes/scratch/day19_band_maxtokens_select.py`,
+`notes/scratch/day19_band_maxtokens_analysis.py`.
+
+Day 19 (report) and Day 20 (repro check) are what's left.
 **Day 17 done too** (`ui/demo.py`, a deliberately
 scoped-down benchmark-mode CLI walkthrough, NOT the full panel UI --
 protecting reproducibility/held-out/report time per explicit

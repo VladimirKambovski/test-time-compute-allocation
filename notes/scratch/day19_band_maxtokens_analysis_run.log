@@ -1,0 +1,21 @@
+dropped: 2082 (persistent 500 error, content-checked, not chased further)
+new problems: 13 MATH-500 + 10 OlympiadBench-A (bands 1-4)
+band-0 reused: 30 MATH-500 (from earlier tonight)
+  note: test/counting_and_probability/181.json/4096 has 24/32 samples (known incomplete pool), using as-is
+  note: test/counting_and_probability/282.json/4096 has 21/32 samples (known incomplete pool), using as-is
+  note: test/geometry/702.json/4096 has 31/32 samples (known incomplete pool), using as-is
+
+total stratified cross-band sample: n=53
+
+=== at 1024 tokens (frozen baseline) ===
+oracle: 0.3585  best_fixed: 0.3396  gap: 1.89pp
+gap 95% CI: [0.00pp, 5.66pp]
+
+=== at 4096 tokens (this check) ===
+oracle: 0.9057  best_fixed: 0.8868  gap: 1.89pp
+gap 95% CI: [0.00pp, 5.66pp]
+
+=== does the gap itself change with more tokens? (paired diff, n=53) ===
+mean change in gap: 0.00pp
+95% CI: [-7.55pp, 3.77pp]
+excludes zero: False
