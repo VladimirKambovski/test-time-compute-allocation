@@ -1,18 +1,17 @@
 # Literature Claim Verification (V1-V5)
 
-_Skeleton drafted Day 2 (was due Day 1 per docs/brief.md §32 — caught late,
-backfilled here). Verdicts filled in as each claim is actually tested;
-"reproduced / partially / not reproduced / out of scope" per docs/brief.md
-§9._
+_Completed Day 19. Verdicts per docs/brief.md section 9:
+"reproduced / partially / not reproduced / out of scope"._
 
 | # | Claim | Source | Test | Verdict |
 |---|---|---|---|---|
-| V1 | A 1B model with compute-optimal TTS beats a 405B model | 2502.06703 | Check scope: MATH-500-only, N=512, PRM-dependent; paper itself reports underperformance on AIME24. Does gap-closing survive on OlympiadBench at N=64? | _pending — E2/E7 (Week 3)_ |
-| V2 | PRMs beat majority voting | 2501.07301 | Reproduce the margin (B3); does it clear the paired bootstrap CI? | _pending — Day 5 (B3 reproduction)_ |
-| V3 | Self-consistency plateaus, can decline after peak on hard items | 2508.00410 | Locate plateau-N per benchmark and difficulty band | _pending — Day 4 (maj@k curve) / E4 (Week 3)_ |
-| V4 | PRM argmax winners are length-biased | 2606.09078 | Regress winner length and step count against pool median | _pending — E4 (Day 13)_ |
-| V5 | Cheap agreement signals give large savings at ~zero accuracy cost | 2305.11860 | Reimplemented as a predictor comparator (fixed agreement threshold); measured against H2 | _pending — E5 (Day 14)_ |
+| V1 | A 1B model with compute-optimal TTS beats a 405B model | 2502.06703 | Does gap-closing survive on OlympiadBench at N=32? | **Not reproduced.** The oracle-vs-best-fixed-policy gap (the mechanism V1's claim depends on) is ~1pp on dev (95% CI [0.20, 1.60]pp, excludes zero but is tiny), 0.00pp on held-out P4, and confirmed to stay at 0.00pp even at a 4x larger token budget (mentor-directed check, `notes/scratch/day19_band_maxtokens_analysis.py`). There is essentially no allocation headroom for this policy to convert into a compute-optimal-TTS-style win. |
+| V2 | PRMs beat majority voting | 2501.07301 | Reproduce the margin (B3); does it clear the paired bootstrap CI? | **Not reproduced — and the opposite direction is significant.** B3 reproduction (Day 5, full P1 scale): PRM-weighted majority = plain majority exactly, zero individual-problem flips. The E4 crossover analysis (Day 19, n=754) goes further: PRM-argmax is reliably and increasingly *worse* than plain majority from N=4 onward (95% CI excludes zero, negative, at every level N=4/8/16/32; gap widens from -3.1pp to -8.0pp). |
+| V3 | Self-consistency plateaus, can decline after peak on hard items | 2508.00410 | Locate plateau-N per benchmark and difficulty band | **Partially tested.** The k*≈2.17 stabilization finding (Day 4) confirms a real, early plateau in aggregate — majority vote locks onto its final answer almost immediately for most problems. The aggregate majority-accuracy curve by budget level (E4, n=754) is monotonically increasing (N=2: 49.9% → N=32: 62.9%), showing no aggregate decline. **A per-difficulty-band decline-after-peak check specifically was not run** — deprioritized under time pressure in favor of items judged higher-value (E4/V4, the mentor-directed cross-band check). Listed explicitly in `07-next-steps.md`, not silently dropped. |
+| V4 | PRM argmax winners are length-biased | 2606.09078 | Regress winner length and step count against pool median | **Confirmed.** n=383 identified PRM-argmax winners (of 754, at N=32): winners are 83.0 tokens shorter than the pool median (95% CI [-94.68, -72.53], excludes zero) but have 0.89 more reasoning steps (95% CI [0.65, 1.15], excludes zero). Plausible mechanism, not separately proven: PRM-argmax favors samples that actually finished (reached a real boxed answer) rather than truncated ones, which tend to be shorter but more complete. Connects to the independent max_tokens/truncation finding below. |
+| V5 | Cheap agreement signals give large savings at ~zero accuracy cost | 2305.11860 | Reimplemented as a predictor comparator (fixed agreement threshold); measured against H2 | **Reproduced.** A simple two-bucket heuristic (predict STOP if the probe's top-answer share ≥0.25, else ABSTAIN) achieves 90.09% accuracy — identical to Detective's full learned-model accuracy (also 90.09%) on the same data. The cheap signal captures essentially all of the achievable value on this policy/data combination; Detective's real incremental advantage is in class-level discrimination (macro-AUROC), not raw accuracy — see `04-results.md`. |
 
-Related but not part of the V1-V5 set (tracked in `report/01-literature.md`
-instead, since they inform novelty/gap rather than a specific reproducible
-claim): 2604.17433, 2606.08098, 2607.08065, 2506.12721, 2604.14853.
+Related but not part of the V1-V5 reproducibility set (tracked in
+`01-literature.md` instead, since they inform novelty/gap rather than a
+specific reproducible claim): 2604.17433, 2606.08098, 2607.08065,
+2506.12721, 2604.14853.
