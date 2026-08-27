@@ -1,0 +1,15 @@
+fetching gold answers...
+got 500 MATH-500, 254/300 OlympiadBench-A
+  150 processed
+  300 processed
+  450 processed
+  600 processed
+  750 processed
+
+total usable problems: 754
+band 1: 151 total, picked 6: [('olympiad-a', '2082', 0.0), ('olympiad-a', '2551', 0.0), ('olympiad-a', '2739', 0.0), ('olympiad-a', '2888', 0.0), ('olympiad-a', '2995', 0.0), ('olympiad-a', '2734', 0.031)]
+band 2: 151 total, picked 6: [('olympiad-a', '2494', 0.062), ('olympiad-a', '2817', 0.156), ('olympiad-a', '2660', 0.25), ('math500', 'test/precalculus/1313.json', 0.406), ('math500', 'test/number_theory/1257.json', 0.531), ('math500', 'test/number_theory/598.json', 0.656)]
+band 3: 151 total, picked 6: [('olympiad-a', '2652', 0.781), ('math500', 'test/prealgebra/1640.json', 0.844), ('math500', 'test/number_theory/72.json', 0.906), ('math500', 'test/prealgebra/1995.json', 0.938), ('math500', 'test/number_theory/521.json', 0.969), ('math500', 'test/algebra/1796.json', 1.0)]
+band 4: 150 total, picked 6: [('olympiad-a', '2241', 1.0), ('math500', 'test/algebra/351.json', 1.0), ('math500', 'test/counting_and_probability/737.json', 1.0), ('math500', 'test/number_theory/1287.json', 1.0), ('math500', 'test/prealgebra/1458.json', 1.0), ('math500', 'test/prealgebra/2037.json', 1.0)]
+
+wrote 13 MATH-500 ids, 11 OlympiadBench-A ids

@@ -1,0 +1,22 @@
+# Day 19, mentor-directed: same check as the MATH-500 sibling config,
+# for the 11 OlympiadBench-A problems in this stratified cross-band
+# sample (bands 1-4).
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary
+benchmark_id: olympiad-a-band-maxtokens
+n: 32
+max_workers: 6
+
+benchmark:
+  dataset_id: "Hothan/OlympiadBench"
+  config: "OE_TO_maths_en_COMP"
+  ids_file: "notes/scratch/day19_band_maxtokens_olympiad_ids.json"
+
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 4096
+  seed: null
+  thinking_mode: false
+  stop_sequences: []

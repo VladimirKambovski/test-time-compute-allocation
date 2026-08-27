@@ -1,0 +1,28 @@
+# Day 19, mentor-directed: does raising max_tokens change the AGGREGATE
+# G1 gap across the full difficulty spectrum, not just the already-
+# tested extreme (band 0)? 13 MATH-500 problems, 6 each from bands 1-3
+# (band 4 all-MATH500 picks may also land here), canonical band
+# assignment (compute_pool_id, not glob). Band 0 already has a real
+# n=30 sample from earlier tonight, reused not regenerated.
+#
+# temperature held at the frozen 0.8 (isolate max_tokens as the only
+# changed variable, same discipline as every prior max_tokens ablation
+# tonight). max_tokens=4096 matches all prior comparisons.
+
+policy_ref: qwen3.5-4b
+backend_ref: policy_primary
+benchmark_id: math500-band-maxtokens
+n: 32
+max_workers: 8
+
+benchmark:
+  dataset_id: "HuggingFaceH4/MATH-500"
+  ids_file: "notes/scratch/day19_band_maxtokens_math500_ids.json"
+
+decode:
+  temperature: 0.8
+  top_p: 0.95
+  max_tokens: 4096
+  seed: null
+  thinking_mode: false
+  stop_sequences: []
