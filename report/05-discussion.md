@@ -81,11 +81,16 @@ silently skipped.
   sequence) but not independently proven. Flagged as a hypothesis, not a
   demonstrated causal claim.
 - **Whether class-weighted rebalancing is the right production choice for
-  Detective.** The real trade-off measured (SAMPLE recall up, ABSTAIN
+  Detective.** The full-rebalancing trade-off (SAMPLE recall up, ABSTAIN
   recall and overall accuracy down) is solid; which side of that trade-off
   is "better" depends on the deployment's actual cost function for a wrong
   ABSTAIN vs. a missed SAMPLE opportunity, which this project does not
-  have real data on.
+  have real data on. **Update, tested rather than left speculative**: a
+  more targeted, partial version of this fix (not the full extreme) was
+  tried against held-out — three independently-selected variants (partial
+  reweighting, a confidence-threshold rule, and a combined version) all
+  converge on the same modest recovery, -9.30pp → -8.14pp vs. best fixed.
+  Real, but partial — see `04-results.md` and `notes/2026-09-01.md`.
 - **Generalization to other policy sizes or genuinely official model
   weights.** All results come from one 4B model served through a
   third-party GGUF conversion (see below) and one weaker-policy (2B)

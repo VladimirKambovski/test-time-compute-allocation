@@ -1,0 +1,7 @@
+rebuilding dev features/labels (canonical enumeration)...
+n=754
+
+=== Fix #2 v2: hybrid fallback, threshold=0.6 (corrected selection criterion) ===
+P4 accuracy: 0.3372 (n=86)  actions: {np.str_('abstain'): 52, np.str_('stop'): 27, 'sample': 7}
+comparison: plain=0.3256 (-9.30pp vs best fixed 0.4186), Fix #1 (sample_x2)=0.3372 (-8.14pp), Fix #2 v1 (threshold=0.4, flawed, no-op)=0.3256
+Fix #2 v2 vs best fixed (0.4186): -8.14pp

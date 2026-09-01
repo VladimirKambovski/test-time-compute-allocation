@@ -1,0 +1,16 @@
+rebuilding dev features/labels...
+n=754
+
+                  config     acc  sample_recall  abstain_recall
+          sample_x2_only  0.9045         0.2545          0.9084
+          sample_x4_only  0.8714         0.5455          0.7692
+         thresh_0.7_only  0.8939         0.3636          0.8718
+    sample_x2+thresh_0.5  0.9032         0.2909          0.9048
+    sample_x2+thresh_0.6  0.8780         0.3818          0.8205
+
+selected (dev-CV only, accuracy >= 0.8944): sample_x2+thresh_0.5
+
+=== Fix #3 (combined/pushed-further): sample_x2+thresh_0.5, one held-out pass ===
+P4 accuracy: 0.3372 (n=86)  actions: {np.str_('abstain'): 50, np.str_('stop'): 27, np.str_('sample'): 9}
+vs best fixed (0.4186): -8.14pp
+(prior fixes both landed at 0.3372, -8.14pp)

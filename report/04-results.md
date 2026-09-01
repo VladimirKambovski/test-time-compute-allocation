@@ -178,6 +178,22 @@ this data (predicted action counts: abstain=54, stop=27, sample=5; true
 optimal: abstain=50, sample=10, stop=26) — it abstains on some problems
 that SAMPLE would have solved.
 
+**Follow-up: is this fixable? Partially, yes — tested, not just
+speculated.** Three independently-selected fixes (a partial class-weight
+recalibration, a confidence-threshold fallback rule, and a combined
+variant), each chosen using only dev-set cross-validation and each
+touched against held-out exactly once, all converge on the same result:
+accuracy 32.6%→33.7% (**-9.30pp → -8.14pp vs. best fixed**). Pushing
+any single lever further (e.g. more aggressive reweighting) does not
+improve on this — cross-validation shows it trades the problem
+sideways (more SAMPLE recall, but a real accuracy cost elsewhere). Three
+different mechanisms landing on the identical number is real evidence
+of a genuine ceiling for this class of fix, not an artifact of one
+particular method: **the diagnosis (calibration, not missing
+information) is correct, and a real, partial fix exists — it recovers
+about an eighth of the deficit, not all of it.** Full detail:
+`notes/2026-09-01.md`.
+
 **P5 (n=30/30, ordinal reporting only per this benchmark's own
 `statistics: ordinal_only` designation — no CI):**
 

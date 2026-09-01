@@ -1,0 +1,27 @@
+building dev features/labels (canonical enumeration)...
+n=754
+
+=== Step 1: select class_weight config via DEV-ONLY CV (never touches held-out) ===
+              config  macro_auroc     acc  sample_recall  abstain_recall
+               plain       0.8692  0.9244         0.1273          0.9890
+           sample_x2       0.8678  0.9045         0.2545          0.9084
+           sample_x3       0.8681  0.8820         0.3636          0.8315
+            balanced       0.8643  0.8223         0.6182          0.6520
+
+selected (dev-CV only): sample_x2
+
+=== Step 2: freeze the selected config on ALL dev data, evaluate ONCE on held-out P4 ===
+
+--- Fix #1: recalibrated model (sample_x2), one held-out pass ---
+P4 accuracy: 0.3372 (n=86)  actions: {np.str_('abstain'): 50, np.str_('stop'): 27, np.str_('sample'): 9}
+(original plain-model result for comparison: 0.3256, -9.30pp vs best fixed 0.4186)
+
+=== Step 3: hybrid fallback, threshold selected via DEV-ONLY CV, one held-out pass ===
+  threshold=0.4: dev CV accuracy=0.9244, sample_recall=0.1273
+  threshold=0.5: dev CV accuracy=0.9218, sample_recall=0.1455
+  threshold=0.6: dev CV accuracy=0.9111, sample_recall=0.2182
+selected threshold (dev-CV only): 0.4
+
+--- Fix #2: hybrid fallback (threshold=0.4), one held-out pass, using the PLAIN model's probs ---
+P4 accuracy: 0.3256 (n=86)  actions: {np.str_('abstain'): 54, np.str_('stop'): 27, np.str_('sample'): 5}
+(original plain-model result for comparison: 0.3256, best fixed policy: 0.4186)
